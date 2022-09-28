@@ -10,7 +10,7 @@ entity rom is
 	generic 
 	(
 		DATA_WIDTH : natural := 32;
-		ADDR_WIDTH : natural := 32
+		ADDR_WIDTH : natural := 10
 	);
 
 	port 
