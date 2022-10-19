@@ -76,6 +76,12 @@ signal s_ADDSUBC:  std_logic;
 
 begin
 
+-- Determains if it is addition or subtracion
+with i_Contral select
+	s_ADDSUBC <= 0 when "0011", -- addition
+		    1 when "0100"; -- subtraction
+		   
+
 g_Barrel_Shifter: Barrel_Shifter port map(
 		i_Value	=> i_A,
 		i_shift_amount	=> i_B,
@@ -120,7 +126,8 @@ with i_Contral select
 	o_Result <= s_And when "0000",
 		    s_org when "0001",
 		    s_xorg when "0010",
-		    s_AddSub when "0011",
-		    s_Barrel_Shifter when "0100";
+		    s_AddSub when "0011", -- addintion
+		    s_AddSub when "0100", -- subtraction
+		    s_Barrel_Shifter when "0101";
 
 end mixed;
