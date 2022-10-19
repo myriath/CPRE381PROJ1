@@ -22,12 +22,12 @@ use IEEE.std_logic_1164.all;
 
 entity ALU is
 generic(N	: integer	:= 32);
-  port(i_Contrlol   : in std_logic_vector(4-1 downto 0);
+  port(i_Contral   : in std_logic_vector(4-1 downto 0);
        i_A          : in std_logic_vector(N-1 downto 0);
        i_B          : in std_logic_vector(N-1 downto 0);
-       o_Result          : out std_logic_vector(N-1 downto 0);
-       o_Zero          : out std_logic
-       o_OverFlow          : out std_logic);
+       o_Result        : out std_logic_vector(N-1 downto 0);
+       o_Zero          : out std_logic;
+       o_OverFlow      : out std_logic);
 
 end ALU;
 
@@ -53,6 +53,12 @@ component org2 is
 		o_F	: out std_logic);
 end component;
 
+component Nor2 is
+	port(	i_A	: in std_logic;
+		i_B	: in std_logic;
+		o_F	: out std_logic);
+end component;
+
 component andg2 is
 	port(	i_A	: in std_logic;
 		i_B	: in std_logic;
@@ -61,31 +67,46 @@ end component;
 
 component Barrel_Shifter is
 
-  port(i_Value           : in std_logic_vector(N-1 downto 0);
+ port(i_Value           : in std_logic_vector(N-1 downto 0);
        i_shift_amount    : in std_logic_vector(N-1 downto 0);
+       i_Contral 	 : in std_logic; -- when 1 will fill it with the sign and when 0 it will be filled with 0
        o_F               : out std_logic_vector(N-1 downto 0));
 
 end component;
 
-signal s_And	: std_logic_vector(N-1 downto 0);
-signal s_org	: std_logic_vector(N-1 downto 0);
-signal s_xorg	: std_logic_vector(N-1 downto 0);
-signal s_AddSub	: std_logic_vector(N-1 downto 0);
-signal s_Barrel_Shifter : std_logic_vector(N-1 downto 0);
-signal s_ADDSUBC:  std_logic;
+signal s_And	                   : std_logic_vector(N-1 downto 0);
+signal s_org	                   : std_logic_vector(N-1 downto 0);
+signal s_xorg	                   : std_logic_vector(N-1 downto 0);
+signal s_AddSub	                   : std_logic_vector(N-1 downto 0);
+signal s_Barrel_Shifter            : std_logic_vector(N-1 downto 0);
+signal s_repl_qb                   : std_logic_vector(N-1 downto 0);
+signal s_Nor                       : std_logic_vector(N-1 downto 0);
+signal s_lui                       : std_logic_vector(N-1 downto 0);
+signal s_ADDSUBC                   :  std_logic;
+signal s_Barrel_Shifter_Control    :  std_logic;
+signal s_Zero                      :  std_logic;
+
+
 
 begin
 
 -- Determains if it is addition or subtracion
 with i_Contral select
-	s_ADDSUBC <= 0 when "0011", -- addition
-		    1 when "0100"; -- subtraction
+	s_Barrel_Shifter_Control <= '0' when "0011", -- addition
+		    '1' when "0111",-- Right shift arimithic
+		    '0' when others;
+
+-- Determains if it is addition or subtracion
+with i_Contral select
+	s_ADDSUBC <= '0' when "0011", -- addition
+		    '1' when "0100", -- subtraction
+		    '0' when others;
 		   
 
 g_Barrel_Shifter: Barrel_Shifter port map(
 		i_Value	=> i_A,
 		i_shift_amount	=> i_B,
-	
+	        i_Contral     => s_Barrel_Shifter_Control,
 		o_F => s_Barrel_Shifter);
 
 g_Andg_N: for i in 0 to N-1 generate
@@ -109,17 +130,31 @@ g_Xorg_N: for i in 0 to N-1 generate
 		o_F	=> s_xorg(i));
 end generate g_Xorg_N;
 
+g_Nor2_N: for i in 0 to N-1 generate
+	Nor2i: Nor2 port map(
+		i_A	=>  i_A(i),
+		i_B	=>  i_B(i),
+		o_F	=> s_Nor(i));
+end generate g_Nor2_N;
+
 g_addsub: addsub port map(
 		i_A	=> i_A,
 		i_B	=> i_B,
 		i_ADDSUB => s_ADDSUBC,
 		o_S	=> s_AddSub,
-		o_C	=> o_Zero);
+		o_C	=> s_Zero);
+o_Zero <= s_Zero;
 
 OverflowXor: xorg2
-    port MAP(i_A             => o_Zero,
+    port MAP(i_A             => s_Zero,
              i_B               => s_AddSub(N-1),
              o_F               => o_OverFlow);
+
+  G_repl_qb: for i in 0 to ((N-1)/8) generate
+
+	s_repl_qb(i*8) <= i_B(7 downto 0);
+
+  end generate G_repl_qb;
 
 
 with i_Contral select
@@ -128,6 +163,12 @@ with i_Contral select
 		    s_xorg when "0010",
 		    s_AddSub when "0011", -- addintion
 		    s_AddSub when "0100", -- subtraction
-		    s_Barrel_Shifter when "0101";
+		    s_Barrel_Shifter when "0101", -- left shift
+		    s_Barrel_Shifter when "0110", -- Right shift
+		    s_Barrel_Shifter when "0111",-- Right shift arimithic
+                    s_repl_qb when "1000",-- repl.qb
+                    s_Nor when "1001",-- Nor
+		    s_lui when "1010",-- lowed upper immidiate
+                      x"0000" when others;
 
 end mixed;

@@ -12,3 +12,155 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
+vlib work
+vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd
+# QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+# Start time: 15:10:03 on Oct 19,2022
+# vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity addsub
+# -- Compiling architecture structure of AddSub
+# -- Compiling entity ALU
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): (vcom-1136) Unknown identifier "o_OverFlow".
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): Bad resolution function (STD_LOGIC) for type (error).
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): near ":": (vcom-1576) expecting ';' or ')'.
+# ** Note: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): VHDL Compiler exiting
+# End time: 15:10:03 on Oct 19,2022, Elapsed time: 0:00:00
+# Errors: 3, Warnings: 0
+vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd
+# QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+# Start time: 15:10:06 on Oct 19,2022
+# vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity addsub
+# -- Compiling architecture structure of AddSub
+# -- Compiling entity ALU
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): (vcom-1136) Unknown identifier "o_OverFlow".
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): Bad resolution function (STD_LOGIC) for type (error).
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): near ":": (vcom-1576) expecting ';' or ')'.
+# ** Note: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): VHDL Compiler exiting
+# End time: 15:10:06 on Oct 19,2022, Elapsed time: 0:00:00
+# Errors: 3, Warnings: 0
+vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd
+# QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+# Start time: 15:10:51 on Oct 19,2022
+# vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity addsub
+# -- Compiling architecture structure of AddSub
+# -- Compiling entity ALU
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): (vcom-1136) Unknown identifier "o_OverFlow".
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): Bad resolution function (STD_LOGIC) for type (error).
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): near ":": (vcom-1576) expecting ';' or ')'.
+# ** Note: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(30): VHDL Compiler exiting
+# End time: 15:10:51 on Oct 19,2022, Elapsed time: 0:00:00
+# Errors: 3, Warnings: 0
+vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd
+# QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+# Start time: 15:12:28 on Oct 19,2022
+# vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity addsub
+# -- Compiling architecture structure of AddSub
+# -- Compiling entity ALU
+# -- Compiling architecture mixed of ALU
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(85): (vcom-1136) Unknown identifier "i_Contral".
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(91): (vcom-1136) Unknown identifier "i_Contral".
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(134): Cannot read output "o_Zero".
+# 	VHDL 2008 allows reading outputs.
+# 	This facility is enabled by compiling with -2008.
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(137): (vcom-1136) Unknown identifier "i_Contral".
+# ** Note: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(150): VHDL Compiler exiting
+# End time: 15:12:28 on Oct 19,2022, Elapsed time: 0:00:00
+# Errors: 4, Warnings: 0
+vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd
+# QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+# Start time: 15:13:06 on Oct 19,2022
+# vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity addsub
+# -- Compiling architecture structure of AddSub
+# -- Compiling entity ALU
+# -- Compiling architecture mixed of ALU
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(134): Cannot read output "o_Zero".
+# 	VHDL 2008 allows reading outputs.
+# 	This facility is enabled by compiling with -2008.
+# ** Error (suppressible): /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(137): (vcom-1339) Selected signal assignment choices cover only 11 out of 6561 cases.
+# ** Note: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(150): VHDL Compiler exiting
+# End time: 15:13:06 on Oct 19,2022, Elapsed time: 0:00:00
+# Errors: 2, Warnings: 0
+vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd
+# QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+# Start time: 15:15:35 on Oct 19,2022
+# vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity addsub
+# -- Compiling architecture structure of AddSub
+# -- Compiling entity ALU
+# -- Compiling architecture mixed of ALU
+# ** Error (suppressible): /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(141): (vcom-1339) Selected signal assignment choices cover only 11 out of 6561 cases.
+# ** Note: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(154): VHDL Compiler exiting
+# End time: 15:15:35 on Oct 19,2022, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd
+# QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+# Start time: 15:16:47 on Oct 19,2022
+# vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ALU
+# -- Compiling architecture mixed of ALU
+# ** Error: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(153): Enumeration literal '0' is not of type ieee.std_logic_1164.STD_LOGIC_VECTOR.
+# ** Note: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(155): VHDL Compiler exiting
+# End time: 15:16:47 on Oct 19,2022, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd
+# QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+# Start time: 15:17:23 on Oct 19,2022
+# vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ALU
+# -- Compiling architecture mixed of ALU
+# End time: 15:17:24 on Oct 19,2022, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Nor.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd
+# QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+# Start time: 15:39:12 on Oct 19,2022
+# vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/AddSub.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/andg2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Barrel_Shifter.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/FullAdder.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/Nor.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/org2.vhd /home/saguilar/CPRE381PROJ1/MIPS/ALU/xorg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity addsub
+# -- Compiling architecture structure of AddSub
+# -- Compiling entity ALU
+# -- Compiling architecture mixed of ALU
+# ** Error (suppressible): /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(128): (vcom-1141) Identifier "Nor2" does not identify a component declaration.
+# ** Note: /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd(162): VHDL Compiler exiting
+# End time: 15:39:12 on Oct 19,2022, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd
+# QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+# Start time: 15:40:20 on Oct 19,2022
+# vcom -reportprogress 300 -work work /home/saguilar/CPRE381PROJ1/MIPS/ALU/ALU.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ALU
+# -- Compiling architecture mixed of ALU
+# End time: 15:40:20 on Oct 19,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
