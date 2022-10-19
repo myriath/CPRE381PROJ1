@@ -23,12 +23,13 @@ architecture behavior of tb_control is
 		ALUOp	: out std_logic_vector(3 downto 0);
 		MemWrite: out std_logic;
 		ALUSrc	: out std_logic;
-		RegWrite: out std_logic);
+		RegWrite: out std_logic;
+		Halt	: out std_logic);
   end component;
 
   -- Temporary signals to connect to the dff component.
   signal s_CLK, s_RST : std_logic;
-  signal s_RegDst, s_Jump, s_Branch, s_Reg31, s_MemRead, s_MemtoReg, s_MemWrite, s_ALUSrc, s_RegWrite : std_logic;
+  signal s_Halt, s_RegDst, s_Jump, s_Branch, s_Reg31, s_MemRead, s_MemtoReg, s_MemWrite, s_ALUSrc, s_RegWrite : std_logic;
   signal s_OP, s_FUNCT : std_logic_vector(5 downto 0);
   signal s_ALUOp : std_logic_vector(3 downto 0);
 
@@ -201,6 +202,11 @@ begin
 	s_FUNCT		<= "001011";
 	wait for cCLK_PER;
     
+-- halt
+	s_OP		<= "010100";
+	s_FUNCT		<= "000000";
+	wait for cCLK_PER;
+
 -- RESET
     s_RST <= '1';
     wait;
