@@ -4,6 +4,7 @@ use IEEE.std_logic_1164.all;
 entity control is 
 	port(	i_OP	: in std_logic_vector(5 downto 0);
 		i_FUNCT	: in std_logic_vector(5 downto 0);
+		i_ZERO	: in std_logic;
 		RegDst	: out std_logic;
 		Jump	: out std_logic;
 		Branch	: out std_logic;
@@ -14,6 +15,8 @@ entity control is
 		MemWrite	: out std_logic;	
 		ALUSrc	: out std_logic;
 		RegWrite	: out std_logic;
+		SignExtend	: out std_logic;
+		Shift		: out std_logic;
 		Halt	: out std_logic
 );
 end control;
@@ -40,7 +43,7 @@ MemReadS <= '1' when (i_OP = "100011") else '0';
 
 RegDst	 <= '1' when (noOp = '1' or (i_OP = "011111" and i_FUNCT = "010010")) else '0';
 Jump	 <= '1' when (top5 = "00001" or (noOp = '1' and jr = '1')) else '0';
-Branch	 <= '1' when (top5 = "00010") else '0';
+Branch	 <= '1' when ((i_OP = "000100" and i_ZERO = '1') or (i_OP = "000101" and i_ZERO = '0')) else '0';
 Reg31	 <= '1' when (i_OP = "000011") else '0';
 MemRead	 <= MemReadS;
 MemtoReg <= MemReadS;
@@ -64,6 +67,8 @@ ALUOp	 <= 	x"0" when ((noOp = '1' and i_FUNCT = "100100") or i_OP = "001100") el
 MemWrite <= '1' when (i_OP = "101011") else '0';
 ALUSrc	 <= '1' when (top5 = "00001" or top5 = "00010" or top5 = "00100" or i_OP = "001010" or top4 = "0011" or (noOp = '1' and jr = '1') or (top2 = "10" and bot3 = "011")) else '0';
 RegWrite <= '0' when (i_OP = "101011" or top5 = "00010" or i_OP = "000010" or (noOp = '1' and jr = '1')) else '1'; 
+SignExtend <= '1' when (top5 = "00010" or top5 = "00100" or (top2 = "10" and bot3 = "011") or i_OP = "001010") else '0';
+Shift	 <= '1' when (noOp = '1' and (i_FUNCT = "000000" or i_FUNCT(5 downto 1) = "00001")) else '0';
 Halt	 <= '1' when (i_OP = "010100") else '0';
 
 end behavioral;

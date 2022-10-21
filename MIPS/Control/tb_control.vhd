@@ -14,6 +14,7 @@ architecture behavior of tb_control is
   component control
     port(	i_OP	: in std_logic_vector(5 downto 0);
 		i_FUNCT	: in std_logic_vector(5 downto 0);
+		i_ZERO	: in std_logic;
 		RegDst	: out std_logic;
 		Jump	: out std_logic;
 		Branch	: out std_logic;
@@ -24,12 +25,14 @@ architecture behavior of tb_control is
 		MemWrite: out std_logic;
 		ALUSrc	: out std_logic;
 		RegWrite: out std_logic;
+		SignExtend: out std_logic;
+		Shift	: out std_logic;
 		Halt	: out std_logic);
   end component;
 
   -- Temporary signals to connect to the dff component.
   signal s_CLK, s_RST : std_logic;
-  signal s_Halt, s_RegDst, s_Jump, s_Branch, s_Reg31, s_MemRead, s_MemtoReg, s_MemWrite, s_ALUSrc, s_RegWrite : std_logic;
+  signal s_Halt, s_SignExtend, s_Shift, s_ZERO, s_RegDst, s_Jump, s_Branch, s_Reg31, s_MemRead, s_MemtoReg, s_MemWrite, s_ALUSrc, s_RegWrite : std_logic;
   signal s_OP, s_FUNCT : std_logic_vector(5 downto 0);
   signal s_ALUOp : std_logic_vector(3 downto 0);
 
@@ -38,6 +41,7 @@ begin
   DUT: control 
   port map(	i_OP	=> s_OP,
 		i_FUNCT	=> s_FUNCT,
+		i_ZERO	=> s_ZERO,
 		RegDst	=> s_RegDst,
 		Jump	=> s_Jump,
 		Branch	=> s_Branch,
@@ -47,7 +51,10 @@ begin
 		ALUOp	=> s_ALUOp,
 		MemWrite=> s_MemWrite,
 		ALUSrc	=> s_ALUSrc,
-		RegWrite=> s_RegWrite);
+		RegWrite=> s_RegWrite,
+		SignExtend=>s_SignExtend,
+		Shift	=> s_Shift,
+		Halt	=> s_Halt);
 
   -- This process sets the clock value (low for gCLK_HPER, then high
   -- for gCLK_HPER). Absent a "wait" command, processes restart 
@@ -70,6 +77,7 @@ begin
 -- add
 	s_OP		<= "000000";
 	s_FUNCT		<= "100000";
+	s_ZERO		<= '0';
 	wait for cCLK_PER;
 
 -- addi
@@ -170,16 +178,31 @@ begin
 -- beq
 	s_OP		<= "000100";
 	s_FUNCT		<= "000000";
+	s_ZERO		<= '0';
 	wait for cCLK_PER;
     
 -- bne
 	s_OP		<= "000101";
 	s_FUNCT		<= "000000";
+	s_ZERO		<= '0';
+	wait for cCLK_PER;
+    
+-- beq
+	s_OP		<= "000100";
+	s_FUNCT		<= "000000";
+	s_ZERO		<= '1';
+	wait for cCLK_PER;
+    
+-- bne
+	s_OP		<= "000101";
+	s_FUNCT		<= "000000";
+	s_ZERO		<= '1';
 	wait for cCLK_PER;
     
 -- j
 	s_OP		<= "000010";
 	s_FUNCT		<= "000000";
+	s_ZERO		<= '0';
 	wait for cCLK_PER;
     
 -- jal

@@ -70,13 +70,59 @@ architecture structure of MIPS_Processor is
   -- TODO: You may add any additional signals or components your implementation 
   --       requires below this comment
 
+  component pc is port(
+	i_PC		: in std_logic_vector(31 downto 0);
+	i_INST		: in std_logic_vector(25 downto 0);
+	i_BRANCH	: in std_logic;
+	i_JUMP		: in std_logic;
+	i_IMMED		: in std_logic_vector(29 downto 0);
+	o_PCP4		: out std_logic_vector(31 downto 0);
+	o_NEXT		: out std_logic_vector(31 downto 0));
+
+  component ALU is generic(N : integer := 32); port(
+	i_Contral	: in std_logic_vector(3 downto 0);
+	i_A		: in std_logic_vector(N-1 downto 0);
+	i_B		: in std_logic_vector(N-1 downto 0);
+	o_Result	: out std_logic_vector(N-1 downto 0);
+	o_Zero		: out std_logic;
+	o_OverFlow	: out std_logic);
+
+  component control is port(
+	i_OP		: in std_logic_vector(5 downto 0);
+	i_FUNCT		: in std_logic_vector(5 downto 0);
+	RegDst		: out std_logic;
+	Jump		: out std_logic;
+	Branch		: out std_logic;
+	Reg31		: out std_logic;
+	MemRead		: out std_logic;
+	MemtoReg	: out std_logic;
+	ALUOp		: out std_logic_vector(3 downto 0);
+	MemWrite	: out std_logic;
+	ALUSrc		: out std_logic;
+	RegWrite	: out std_logic;
+	Halt		: out std_logic);
+
+  component regfile is port(
+	i_CLK		: in std_logic;
+	i_RST		: in std_logic;
+	i_WEN		: in std_logic;
+	i_WADDR		: in std_logic_vector(4 downto 0);
+	i_WDATA		: in std_logic_vector(31 downto 0);
+	i_RADDR0	: in std_logic_vector(4 downto 0);
+	i_RADDR1	: in std_logic_vector(4 downto 0);
+	o_RDATA0	: out std_logic_vector(31 downto 0);
+	o_RDATA1	: out std_logic_vector(31 downto 0));
+
+  signal s_zero		: std_logic;
+  signal s_control	: std_logic_vector(14 downto 0);
+  signal s_regread0, s_regread1, s_alua, s_alub, s_alures, s_aluormem, s_pcplus4	: std_logic_vector(31 downto 0);
+
 begin
 
   -- TODO: This is required to be your final input to your instruction memory. This provides a feasible method to externally load the memory module which means that the synthesis tool must assume it knows nothing about the values stored in the instruction memory. If this is not included, much, if not all of the design is optimized out because the synthesis tool will believe the memory to be all zeros.
   with iInstLd select
     s_IMemAddr <= s_NextInstAddr when '0',
       iInstAddr when others;
-
 
   IMem: mem
     generic map(ADDR_WIDTH => ADDR_WIDTH,
@@ -86,7 +132,7 @@ begin
              data => iInstExt,
              we   => iInstLd,
              q    => s_Inst);
-  
+
   DMem: mem
     generic map(ADDR_WIDTH => ADDR_WIDTH,
                 DATA_WIDTH => N)
@@ -97,9 +143,67 @@ begin
              q    => s_DMemOut);
 
   -- TODO: Ensure that s_Halt is connected to an output control signal produced from decoding the Halt instruction (Opcode: 01 0100)
+  Control: control
+	port map(	i_OP		=> s_Inst(31 downto 26),
+			i_FUNCT		=> s_Inst(5 downto 0),
+			i_ZERO		=> s_zero,
+			RegDst		=> s_control(0),
+			Jump		=> s_control(1),
+			Branch		=> s_control(2),
+			Reg31		=> s_control(3),
+			MemRead		=> s_control(4),
+			MemtoReg	=> s_control(5),
+			ALUOp		=> s_control(9 downto 6),
+			MemWrite	=> s_DMemWr,
+			ALUSrc		=> s_control(11),
+			RegWrite	=> s_RegWr,
+			SignExtend	=> s_control(13),
+			Shift		=> s_control(14),
+			Halt		=> s_Halt);
+
   -- TODO: Ensure that s_Ovfl is connected to the overflow output of your ALU
+  s_alua		<= s_regread0 when (s_control(14) = '0') else s_Inst(10 downto 6);
+  MathUnit: ALU
+	port map(	i_Contral	=> s_control(9 downto 6),
+			i_A		=> s_alua,
+			i_B		=> s_alub,
+			o_Result	=> s_alures,
+			o_Zero		=> s_zero,
+			o_OverFlow	=> s_Ovfl);
+  s_DMemAddr		<= s_alures(N-1 downto 0);
+  s_aluormem		<= s_DMemOut when (control(5) = '1') else s_alures;
+  oALUOut		<= s_alures;
 
   -- TODO: Implement the rest of your processor below this comment! 
+
+  s_RegWrData		<= s_aluormem when (s_control(3) = '0') else s_pcplus4;
+  s_RegWrAddr		<= s_Inst(20 downto 16) when (control(0) = '0') else "000" & x"000000" & s_Inst(15 downto 11);
+  Registers: regfile
+	port map(	i_CLK		=> iCLK,
+			i_RST		=> iRST,
+			i_WEN		=> s_RegWr,
+			i_WADDR		=> s_RegWrAddr,
+			i_WDATA		=> s_RegWrData,
+			i_RADDR0	=> s_Inst(25 downto 21),
+			i_RADDR1	=> s_Inst(20 downto 16),
+			o_RDATA0	=> s_regread0,
+			o_RDATA1	=> s_DMemData);
+
+  s_extend		<= x"ffff" & s_Inst(15 downto 0) when (s_Inst(15 = '1' and s_control(13) = '1') else
+			   x"0000" & s_Inst(15 downto 0);
+  s_alub		<= s_regread1 when (s_control(11) = '0') else
+			   s_extend;
+
+
+
+  ProgramCounter: pc
+	port map(	i_PC		=> s_IMemAddr,
+			i_INST		=> s_Inst(25 downto 0),
+			i_BRANCH	=> s_control(2),
+			i_JUMP		=> s_control(1),
+			i_IMMED		=> s_extend(29 downto 0),
+			o_PCP4		=> s_pcplus4,
+			o_NEXT		=> s_NextInstAddr);
 
 end structure;
 
