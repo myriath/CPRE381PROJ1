@@ -63,7 +63,12 @@ def main():
     if not options.nocompile:
         compile_success = ms.compile('internal/ModelSimContainer/work', "internal/ModelSimContainer/vcom.log")
         if not compile_success:
-            print("VHDL Compile Failed")
+            print("VHDL Compile Failed -- Errors:")
+            shutil.copyfile("internal/ModelSimContainer/vcom.log", "output/vcom.log")
+            print("-" * 80)
+            print_compile_errors("output/vcom.log")
+            print("-" * 80)
+            print("See output/vcom.log for more information")
             exit(1)
         else:
             print("All VHDL src files compiled successfully")
@@ -71,6 +76,13 @@ def main():
         print('Skipping compilation')
 
     parrallel_run(options.files, options, config, env)
+
+def print_compile_errors(path):
+    with open(path, "r") as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith("**"):
+                print("\t" + line)
 
 def parrallel_run(asm_paths, options, config, env):
     jobs = options.jobs
