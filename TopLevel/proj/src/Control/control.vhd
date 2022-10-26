@@ -66,7 +66,7 @@ ALUOp	 <= 	x"0" when ((noOp = '1' and i_FUNCT = "100100") or i_OP = "001100") el
 		x"0";
 MemWrite <= '1' when (i_OP = "101011") else '0';
 ALUSrc	 <= '1' when (top5 = "00001" or top5 = "00010" or top5 = "00100" or i_OP = "001010" or top4 = "0011" or (noOp = '1' and jr = '1') or (top2 = "10" and bot3 = "011")) else '0';
-RegWrite <= '0' when (i_OP = "101011" or top5 = "00010" or i_OP = "000010" or (noOp = '1' and jr = '1')) else '1'; 
+RegWrite <= '1' when not (i_OP = "101011" or top5 = "00010" or i_OP = "000010" or (noOp = '1' and jr = '1')) else '0'; 
 SignExtend <= '1' when (top5 = "00010" or top5 = "00100" or (top2 = "10" and bot3 = "011") or i_OP = "001010") else '0';
 Shift	 <= '1' when (noOp = '1' and (i_FUNCT = "000000" or i_FUNCT(5 downto 1) = "00001")) else '0';
 Halt	 <= '1' when (i_OP = "010100") else '0';

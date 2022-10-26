@@ -1,6 +1,6 @@
 QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
-Start time: 20:24:50 on Oct 22,2022
-vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src/MIPS_types.vhd proj/src/Basic/xorg2.vhd proj/src/Basic/n_dff.vhd proj/src/Basic/andg2.vhd proj/src/Basic/5x32decoder.vhd proj/src/Basic/org2.vhd proj/src/Basic/dffg.vhd proj/src/Basic/mux32t1.vhd proj/src/ALU/ALU.vhd proj/src/ALU/FullAdder.vhd proj/src/ALU/AddSub.vhd proj/src/ALU/Barrel_Shifter.vhd proj/src/ALU/Nor.vhd proj/src/Control/control.vhd proj/src/PC/pc.vhd proj/src/TopLevel/MIPS_Processor.vhd proj/src/TopLevel/mem.vhd proj/src/RegFile/regfile.vhd 
+Start time: 16:51:56 on Oct 26,2022
+vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src/MIPS_types.vhd proj/src/Basic/xorg2.vhd proj/src/Basic/dffgSpecial.vhd proj/src/Basic/n_dff.vhd proj/src/Basic/andg2.vhd proj/src/Basic/5x32decoder.vhd proj/src/Basic/org2.vhd proj/src/Basic/dffg.vhd proj/src/Basic/mux32t1.vhd proj/src/ALU/ALU.vhd proj/src/ALU/FullAdder.vhd proj/src/ALU/AddSub.vhd proj/src/ALU/Barrel_Shifter.vhd proj/src/ALU/Nor.vhd proj/src/Control/control.vhd proj/src/PC/pc.vhd proj/src/TopLevel/MIPS_Processor.vhd proj/src/TopLevel/mem.vhd proj/src/RegFile/regfile.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
@@ -13,6 +13,8 @@ vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src
 -- Loading package MIPS_types
 -- Compiling entity xorg2
 -- Compiling architecture dataflow of xorg2
+-- Compiling entity dffgSpecial
+-- Compiling architecture mixed of dffgSpecial
 -- Compiling entity n_dff
 -- Compiling architecture structural of n_dff
 -- Compiling entity andg2
@@ -49,5 +51,5 @@ vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src
 -- Compiling architecture rtl of mem
 -- Compiling entity regfile
 -- Compiling architecture mixed of regfile
-End time: 20:24:50 on Oct 22,2022, Elapsed time: 0:00:00
+End time: 16:51:56 on Oct 26,2022, Elapsed time: 0:00:00
 Errors: 0, Warnings: 0

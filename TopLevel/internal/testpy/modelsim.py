@@ -114,8 +114,8 @@ class Modelsim:
     
         # We can't use timeout here because of this bug, so use GNU timeout
         # https://bugs.python.org/issue37424
-    
-        with open(directory / vsim_log,'w') as sim_log:
+
+        with open(directory / vsim_log, 'w') as sim_log:
             exit_code = subprocess.call(
                 ['timeout', str(timeout), f'{self.modelsim_path}/vsim', '-postsimdataflow', '-debugdb', '-c','-voptargs="+acc"','tb','-do','modelsim_framework.do', f'-gOUTPUT_TRACE={modelsim_trace}', ],
                 stdout=sim_log,
@@ -124,6 +124,10 @@ class Modelsim:
                 timeout=timeout, # If the do file doesn't reach the 'quit' we need to manually kill the process 
                 env=self.env
             )
+
+        trace = directory / modelsim_trace
+
+        trace.touch()
     
         # check if process exited with error.
         if(exit_code == 124):

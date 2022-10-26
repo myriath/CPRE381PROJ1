@@ -71,6 +71,8 @@ architecture structure of MIPS_Processor is
   --       requires below this comment
 
   component pc is port(
+	i_CLK		: in std_logic;
+	i_RST		: in std_logic;
 	i_PC		: in std_logic_vector(31 downto 0);
 	i_INST		: in std_logic_vector(25 downto 0);
 	i_BRANCH	: in std_logic;
@@ -121,8 +123,8 @@ architecture structure of MIPS_Processor is
   end component;
 
   signal s_zero		: std_logic;
-  signal s_control	: std_logic_vector(14 downto 0);
-  signal s_extend, s_regread0, s_regread1, s_alua, s_alub, s_alures, s_aluormem, s_pcplus4	: std_logic_vector(31 downto 0);
+  signal s_control	: std_logic_vector(12 downto 0);
+  signal s_extend, s_regread0, s_alua, s_alub, s_alures, s_aluormem, s_pcplus4	: std_logic_vector(31 downto 0);
 
 begin
 
@@ -162,14 +164,14 @@ begin
 			MemtoReg	=> s_control(5),
 			ALUOp		=> s_control(9 downto 6),
 			MemWrite	=> s_DMemWr,
-			ALUSrc		=> s_control(11),
+			ALUSrc		=> s_control(10),
 			RegWrite	=> s_RegWr,
-			SignExtend	=> s_control(13),
-			Shift		=> s_control(14),
+			SignExtend	=> s_control(11),
+			Shift		=> s_control(12),
 			Halt		=> s_Halt);
 
   -- TODO: Ensure that s_Ovfl is connected to the overflow output of your ALU
-  s_alua		<= s_regread0 when (s_control(14) = '0') else "000" & x"000000" & s_Inst(10 downto 6);
+  s_alua		<= s_regread0 when (s_control(12) = '0') else "000" & x"000000" & s_Inst(10 downto 6);
   MathUnit: ALU
 	port map(	i_Contral	=> s_control(9 downto 6),
 			i_A		=> s_alua,
@@ -196,15 +198,17 @@ begin
 			o_RDATA0	=> s_regread0,
 			o_RDATA1	=> s_DMemData);
 
-  s_extend		<= x"ffff" & s_Inst(15 downto 0) when (s_Inst(15) = '1' and s_control(13) = '1') else
+  s_extend		<= x"ffff" & s_Inst(15 downto 0) when (s_Inst(15) = '1' and s_control(11) = '1') else
 			   x"0000" & s_Inst(15 downto 0);
-  s_alub		<= s_regread1 when (s_control(11) = '0') else
+  s_alub		<= s_DMemData when (s_control(10) = '0') else
 			   s_extend;
 
 
 
   ProgramCounter: pc
-	port map(	i_PC		=> s_IMemAddr,
+	port map(	i_CLK		=> iCLK,
+			i_RST		=> iRST,
+			i_PC		=> s_IMemAddr,
 			i_INST		=> s_Inst(25 downto 0),
 			i_BRANCH	=> s_control(2),
 			i_JUMP		=> s_control(1),

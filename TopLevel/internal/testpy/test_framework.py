@@ -275,7 +275,7 @@ def warn_tb_checksum():
     Assumes file exists. Allows both LF and CRLF line endings.
     '''
     expected = {
-        b'\x8d\x95\xbb6\x1cQ\x89\xd5\xfe\xb3\x8b\n\x0f1yk'
+        b'\xe3\xd9.\xfcl\xb3_G\x14Q\x93]\x98\xe7\x101'
         }
 
     # copy these lines to generate new expected checksums

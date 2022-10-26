@@ -83,14 +83,14 @@ class StudentReader:
                 # We didn't read a valid cycle, skip and move on
                 student_done = student_done_re.search(self.buff.pop(0))
                 if student_done:
-                    self.cyc_num = int(student_done.group("cycle"))
+                    self.cyc_num = int(student_done.group("cycle")) + 1 # Add 1 because cycle count starts at zero
                     return None, None, None
 
                 return self.read_next()
             else:
                 self.buff.pop(0)
 
-            self.cyc_num = cycle.group("cycle")
+            self.cyc_num = int(cycle.group("cycle")) + 1
 
             # Do we have a register or memory write next?
             acc = memory_write_re.search(self.buff[0])

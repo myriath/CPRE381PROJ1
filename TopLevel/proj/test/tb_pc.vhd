@@ -12,7 +12,9 @@ architecture behavior of tb_pc is
 
 
   component pc
-    port(	i_PC	: in std_logic_vector(31 downto 0);
+    port(	i_CLK	: in std_logic;
+		i_RST	: in std_logic;
+		i_PC	: in std_logic_vector(31 downto 0);
 		i_INST	: in std_logic_vector(25 downto 0);
 		i_BRANCH: in std_logic;
 		i_JUMP	: in std_logic;
@@ -30,7 +32,9 @@ architecture behavior of tb_pc is
 begin
 
   DUT: pc 
-  port map(	i_PC	=> s_PC,
+  port map(	i_CLK	=> s_CLK,
+		i_RST	=> s_RST,
+		i_PC	=> s_PC,
 		i_INST	=> s_INST,
 		i_BRANCH	=> s_BRANCH,
 		i_JUMP	=> s_JUMP,
