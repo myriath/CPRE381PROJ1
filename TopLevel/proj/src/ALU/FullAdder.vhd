@@ -7,7 +7,7 @@ entity FullAdder is
 		i_B	: in std_logic_vector(N-1 downto 0);
 		i_C	: in std_logic;
 		o_S	: out std_logic_vector(N-1 downto 0);
-		o_C	: out std_logic);
+		o_C	: out std_logic_vector(N-1 downto 0));
 end FullAdder;
 
 architecture structure of FullAdder is
@@ -38,7 +38,7 @@ signal s_C	: std_logic_vector(N downto 0);
 begin
 
 s_C(0)	<= i_C;
-o_C	<= s_C(N);
+o_C	<= s_C(N downto 1);
 
 g_AxB: for i in 0 to N-1 generate
 	xori: xorg2 port map(

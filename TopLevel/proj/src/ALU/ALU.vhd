@@ -38,7 +38,7 @@ component addsub is
 		i_B	: in std_logic_vector(N-1 downto 0);
 		i_ADDSUB: in std_logic;
 		o_S	: out std_logic_vector(N-1 downto 0);
-		o_C	: out std_logic);
+		o_C	: out std_logic_vector(N-1 downto 0));
 end component;
 
 component xorg2 is
@@ -84,6 +84,8 @@ signal s_Nor                       : std_logic_vector(N-1 downto 0);
 signal s_ADDSUBC                   :  std_logic;
 signal s_Barrel_Shifter_Control    :  std_logic_vector(1 downto 0);
 signal s_Zero                      :  std_logic;
+signal s_Carry                     :  std_logic_vector(N-1 downto 0);
+signal s_OverFlow                  :  std_logic;
 
 
 
@@ -141,13 +143,13 @@ g_addsub: addsub port map(
 		i_B	=> i_B,
 		i_ADDSUB => s_ADDSUBC,
 		o_S	=> s_AddSub,
-		o_C	=> s_Zero);
-o_Zero <= s_Zero;
+		o_C	=> s_Carry);
+o_Zero <= '1' when (s_AddSub = x"00000000") else '0';
 
 OverflowXor: xorg2
-    port MAP(i_A             => s_Zero,
-             i_B               => s_AddSub(N-1),
-             o_F               => o_OverFlow);
+    port MAP(i_A             => s_Carry(N-1),
+             i_B               => s_Carry(N-2),
+             o_F               => s_OverFlow);
 
   G_repl_qb: for i in 0 to (N/8)-1 generate
 
@@ -168,5 +170,7 @@ with i_Contral select
                     s_Nor when "1001",-- Nor
 		    i_B(15 downto 0) & x"0000" when "1010",-- lowed upper immidiate
                       x"00000000" when others;
+
+o_OverFlow <= s_OverFlow when (i_Contral = "0011" or i_Contral = "0100") else '0';
 
 end mixed;

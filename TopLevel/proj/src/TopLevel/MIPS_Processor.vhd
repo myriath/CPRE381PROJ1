@@ -75,6 +75,8 @@ architecture structure of MIPS_Processor is
 	i_RST		: in std_logic;
 	i_PC		: in std_logic_vector(31 downto 0);
 	i_INST		: in std_logic_vector(25 downto 0);
+	i_REG31		: in std_logic_vector(31 downto 0);
+	i_JR		: in std_logic;
 	i_BRANCH	: in std_logic;
 	i_JUMP		: in std_logic;
 	i_IMMED		: in std_logic_vector(29 downto 0);
@@ -95,6 +97,7 @@ architecture structure of MIPS_Processor is
 	i_OP		: in std_logic_vector(5 downto 0);
 	i_FUNCT		: in std_logic_vector(5 downto 0);
 	i_ZERO		: in std_logic;
+	i_OVFL		: in std_logic;
 	RegDst		: out std_logic;
 	Jump		: out std_logic;
 	Branch		: out std_logic;
@@ -107,6 +110,10 @@ architecture structure of MIPS_Processor is
 	RegWrite	: out std_logic;
 	SignExtend	: out std_logic;
 	Shift		: out std_logic;
+	o_JR		: out std_logic;
+	Overflow	: out std_logic;
+	SLT		: out std_logic;
+	MOVN		: out std_logic;
 	Halt		: out std_logic);
   end component;
 
@@ -122,8 +129,8 @@ architecture structure of MIPS_Processor is
 	o_RDATA1	: out std_logic_vector(31 downto 0));
   end component;
 
-  signal s_zero		: std_logic;
-  signal s_control	: std_logic_vector(12 downto 0);
+  signal s_zero, s_Overflow, s_TRegWr		: std_logic;
+  signal s_control	: std_logic_vector(15 downto 0);
   signal s_extend, s_regread0, s_alua, s_alub, s_alures, s_aluormem, s_pcplus4	: std_logic_vector(31 downto 0);
 
 begin
@@ -156,6 +163,7 @@ begin
 	port map(	i_OP		=> s_Inst(31 downto 26),
 			i_FUNCT		=> s_Inst(5 downto 0),
 			i_ZERO		=> s_zero,
+			i_OVFL		=> s_Overflow,
 			RegDst		=> s_control(0),
 			Jump		=> s_control(1),
 			Branch		=> s_control(2),
@@ -165,9 +173,13 @@ begin
 			ALUOp		=> s_control(9 downto 6),
 			MemWrite	=> s_DMemWr,
 			ALUSrc		=> s_control(10),
-			RegWrite	=> s_RegWr,
+			RegWrite	=> s_TRegWr,
 			SignExtend	=> s_control(11),
 			Shift		=> s_control(12),
+			o_JR		=> s_control(13),
+			Overflow	=> s_Ovfl,
+			SLT		=> s_control(14),
+			MOVN		=> s_control(15),
 			Halt		=> s_Halt);
 
   -- TODO: Ensure that s_Ovfl is connected to the overflow output of your ALU
@@ -178,15 +190,15 @@ begin
 			i_B		=> s_alub,
 			o_Result	=> s_alures,
 			o_Zero		=> s_zero,
-			o_OverFlow	=> s_Ovfl);
+			o_OverFlow	=> s_Overflow);
   s_DMemAddr		<= s_alures(N-1 downto 0);
   s_aluormem		<= s_DMemOut when (s_control(5) = '1') else s_alures;
   oALUOut		<= s_alures;
 
   -- TODO: Implement the rest of your processor below this comment! 
 
-  s_RegWrData		<= s_aluormem when (s_control(3) = '0') else s_pcplus4;
-  s_RegWrAddr		<= s_Inst(20 downto 16) when (s_control(0) = '0') else s_Inst(15 downto 11);
+  s_RegWrData		<= x"00000001" when (s_control(14) = '1' and s_alures(31) = '1') else x"00000000" when (s_control(14) = '1' and s_alures(31) = '0') else s_regread0 when (s_control(15) = '1' and not (s_DMemData = x"00000000")) else s_aluormem when (s_control(3) = '0') else s_pcplus4;
+  s_RegWrAddr		<= "11111" when (s_control(3) = '1') else s_Inst(20 downto 16) when (s_control(0) = '0') else s_Inst(15 downto 11);
   Registers: regfile
 	port map(	i_CLK		=> iCLK,
 			i_RST		=> iRST,
@@ -198,6 +210,7 @@ begin
 			o_RDATA0	=> s_regread0,
 			o_RDATA1	=> s_DMemData);
 
+  s_RegWr		<= '0' when (s_control(15) = '1' and (s_DMemData = x"00000000")) else s_TRegWr;
   s_extend		<= x"ffff" & s_Inst(15 downto 0) when (s_Inst(15) = '1' and s_control(11) = '1') else
 			   x"0000" & s_Inst(15 downto 0);
   s_alub		<= s_DMemData when (s_control(10) = '0') else
@@ -210,6 +223,8 @@ begin
 			i_RST		=> iRST,
 			i_PC		=> s_IMemAddr,
 			i_INST		=> s_Inst(25 downto 0),
+			i_REG31		=> s_regread0,
+			i_JR		=> s_control(13),
 			i_BRANCH	=> s_control(2),
 			i_JUMP		=> s_control(1),
 			i_IMMED		=> s_extend(29 downto 0),

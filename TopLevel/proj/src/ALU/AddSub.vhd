@@ -6,7 +6,7 @@ entity addsub is
 		i_B	: in std_logic_vector(31 downto 0);
 		i_ADDSUB: in std_logic;
 		o_S	: out std_logic_vector(31 downto 0);
-		o_C	: out std_logic);
+		o_C	: out std_logic_vector(31 downto 0));
 end AddSub;
 
 architecture structure of AddSub is
@@ -17,7 +17,7 @@ component FullAdder is
 		i_B	: in std_logic_vector(N-1 downto 0);
 		i_C	: in std_logic;
 		o_S	: out std_logic_vector(N-1 downto 0);
-		o_C	: out std_logic);
+		o_C	: out std_logic_vector(N-1 downto 0));
 end component;
 
 component xorg2 is

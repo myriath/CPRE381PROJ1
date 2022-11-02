@@ -1,5 +1,5 @@
 QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
-Start time: 15:31:13 on Oct 26,2022
+Start time: 13:09:36 on Nov 02,2022
 vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src/MIPS_types.vhd proj/src/Basic/xorg2.vhd proj/src/Basic/dffgSpecial.vhd proj/src/Basic/n_dff.vhd proj/src/Basic/andg2.vhd proj/src/Basic/5x32decoder.vhd proj/src/Basic/org2.vhd proj/src/Basic/dffg.vhd proj/src/Basic/mux32t1.vhd proj/src/ALU/ALU.vhd proj/src/ALU/FullAdder.vhd proj/src/ALU/AddSub.vhd proj/src/ALU/Barrel_Shifter.vhd proj/src/ALU/Nor.vhd proj/src/Control/control.vhd proj/src/PC/pc.vhd proj/src/TopLevel/MIPS_Processor.vhd proj/src/TopLevel/mem.vhd proj/src/RegFile/regfile.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -44,10 +44,10 @@ vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src
 -- Compiling architecture behavioral of control
 -- Compiling entity pc
 -- Compiling architecture behavioral of pc
-** Error: proj/src/PC/pc.vhd(44): (vcom-1136) Unknown identifier "s_pcNext".
-** Error: proj/src/PC/pc.vhd(53): Illegal target for signal assignment.
-** Error: proj/src/PC/pc.vhd(53): (vcom-1136) Unknown identifier "s_pcNext".
-** Error: proj/src/PC/pc.vhd(53): Signal "s_BranchMux" is type ieee.std_logic_1164.STD_LOGIC_VECTOR; expecting type (error).
-** Note: proj/src/PC/pc.vhd(56): VHDL Compiler exiting
-End time: 15:31:13 on Oct 26,2022, Elapsed time: 0:00:00
-Errors: 4, Warnings: 0
+-- Loading package MIPS_types
+-- Compiling entity MIPS_Processor
+-- Compiling architecture structure of MIPS_Processor
+** Error: proj/src/TopLevel/MIPS_Processor.vhd(179): (vcom-1484) Unknown formal identifier "SLT".
+** Note: proj/src/TopLevel/MIPS_Processor.vhd(230): VHDL Compiler exiting
+End time: 13:09:36 on Nov 02,2022, Elapsed time: 0:00:00
+Errors: 1, Warnings: 0

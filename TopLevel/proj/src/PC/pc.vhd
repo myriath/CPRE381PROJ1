@@ -7,6 +7,8 @@ entity pc is
 		i_RST	: in std_logic;
 		i_PC	: in std_logic_vector(31 downto 0);
 		i_INST	: in std_logic_vector(25 downto 0);
+		i_REG31	: in std_logic_vector(31 downto 0);
+		i_JR	: in std_logic;
 		i_BRANCH: in std_logic;
 		i_JUMP	: in std_logic;
 		i_IMMED	: in std_logic_vector(29 downto 0);
@@ -50,7 +52,7 @@ pcPlus4 	<= std_logic_vector(to_signed(s_pcint, i_PC'length));
 jAddr	 	<= pcPlus4(31 downto 28) & i_INST & "00";
 s_BranchMux	<= pcPlus4 when (i_BRANCH = '0') else std_logic_vector(to_signed(s_pcint + s_immed, i_PC'length));
 o_PCP4		<= pcPlus4;
-pcNext		<= jAddr when (i_JUMP = '1') else s_BranchMux(31 downto 0);
+pcNext		<= i_REG31 when (i_JR = '1') else jAddr when (i_JUMP = '1') else s_BranchMux(31 downto 0);
 o_NEXT		<= s_pc;
 
 end behavioral;

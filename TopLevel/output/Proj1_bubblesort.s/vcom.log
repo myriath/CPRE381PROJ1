@@ -1,0 +1,55 @@
+QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
+Start time: 15:35:48 on Nov 02,2022
+vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src/MIPS_types.vhd proj/src/Basic/xorg2.vhd proj/src/Basic/dffgSpecial.vhd proj/src/Basic/n_dff.vhd proj/src/Basic/andg2.vhd proj/src/Basic/5x32decoder.vhd proj/src/Basic/org2.vhd proj/src/Basic/dffg.vhd proj/src/Basic/mux32t1.vhd proj/src/ALU/ALU.vhd proj/src/ALU/FullAdder.vhd proj/src/ALU/AddSub.vhd proj/src/ALU/Barrel_Shifter.vhd proj/src/ALU/Nor.vhd proj/src/Control/control.vhd proj/src/PC/pc.vhd proj/src/TopLevel/MIPS_Processor.vhd proj/src/TopLevel/mem.vhd proj/src/RegFile/regfile.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_textio
+-- Loading package ENV
+-- Compiling entity tb
+-- Compiling architecture mixed of tb
+-- Compiling package MIPS_types
+-- Compiling package body MIPS_types
+-- Loading package MIPS_types
+-- Compiling entity xorg2
+-- Compiling architecture dataflow of xorg2
+-- Compiling entity dffgSpecial
+-- Compiling architecture mixed of dffgSpecial
+-- Compiling entity n_dff
+-- Compiling architecture structural of n_dff
+-- Compiling entity andg2
+-- Compiling architecture dataflow of andg2
+-- Compiling entity decoder5x32
+-- Compiling architecture dataflow of decoder5x32
+-- Compiling entity org2
+-- Compiling architecture dataflow of org2
+-- Compiling entity dffg
+-- Compiling architecture mixed of dffg
+-- Compiling package muxpkg
+-- Loading package muxpkg
+-- Compiling entity mux32t1
+-- Compiling architecture dataflow of mux32t1
+-- Compiling entity ALU
+-- Compiling architecture mixed of ALU
+-- Compiling entity FullAdder
+-- Compiling architecture structure of FullAdder
+-- Compiling entity addsub
+-- Compiling architecture structure of AddSub
+-- Loading package NUMERIC_STD
+-- Compiling entity Barrel_Shifter
+-- Compiling architecture mixed of Barrel_Shifter
+-- Compiling entity Nor2
+-- Compiling architecture dataflow of Nor2
+-- Compiling entity control
+-- Compiling architecture behavioral of control
+-- Compiling entity pc
+-- Compiling architecture behavioral of pc
+-- Loading package MIPS_types
+-- Compiling entity MIPS_Processor
+-- Compiling architecture structure of MIPS_Processor
+-- Compiling entity mem
+-- Compiling architecture rtl of mem
+-- Compiling entity regfile
+-- Compiling architecture mixed of regfile
+End time: 15:35:48 on Nov 02,2022, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

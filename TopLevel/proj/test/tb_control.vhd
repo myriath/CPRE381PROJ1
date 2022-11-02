@@ -15,6 +15,7 @@ architecture behavior of tb_control is
     port(	i_OP	: in std_logic_vector(5 downto 0);
 		i_FUNCT	: in std_logic_vector(5 downto 0);
 		i_ZERO	: in std_logic;
+		i_OVFL	: in std_logic;
 		RegDst	: out std_logic;
 		Jump	: out std_logic;
 		Branch	: out std_logic;
@@ -27,12 +28,15 @@ architecture behavior of tb_control is
 		RegWrite: out std_logic;
 		SignExtend: out std_logic;
 		Shift	: out std_logic;
+		o_JR	: out std_logic;
+		Overflow	: out std_logic;
+		SLT	: out std_logic;
 		Halt	: out std_logic);
   end component;
 
   -- Temporary signals to connect to the dff component.
   signal s_CLK, s_RST : std_logic;
-  signal s_Halt, s_SignExtend, s_Shift, s_ZERO, s_RegDst, s_Jump, s_Branch, s_Reg31, s_MemRead, s_MemtoReg, s_MemWrite, s_ALUSrc, s_RegWrite : std_logic;
+  signal s_Halt, s_SignExtend, s_Shift, s_ZERO, s_RegDst, s_Jump, s_Branch, s_Reg31, s_MemRead, s_MemtoReg, s_MemWrite, s_ALUSrc, s_RegWrite, s_JR, s_Overflow, s_OVFL, s_SLT : std_logic;
   signal s_OP, s_FUNCT : std_logic_vector(5 downto 0);
   signal s_ALUOp : std_logic_vector(3 downto 0);
 
@@ -42,6 +46,7 @@ begin
   port map(	i_OP	=> s_OP,
 		i_FUNCT	=> s_FUNCT,
 		i_ZERO	=> s_ZERO,
+		i_OVFL	=> s_OVFL,
 		RegDst	=> s_RegDst,
 		Jump	=> s_Jump,
 		Branch	=> s_Branch,
@@ -54,6 +59,9 @@ begin
 		RegWrite=> s_RegWrite,
 		SignExtend=>s_SignExtend,
 		Shift	=> s_Shift,
+		o_JR	=> s_JR,
+		Overflow	=> s_Overflow,
+		SLT	=> s_SLT,
 		Halt	=> s_Halt);
 
   -- This process sets the clock value (low for gCLK_HPER, then high
@@ -78,26 +86,56 @@ begin
 	s_OP		<= "000000";
 	s_FUNCT		<= "100000";
 	s_ZERO		<= '0';
+	s_OVFL		<= '0';
+	wait for cCLK_PER;
+
+-- add (ovfl)
+	s_OP		<= "000000";
+	s_FUNCT		<= "100000";
+	s_ZERO		<= '0';
+	s_OVFL		<= '1';
 	wait for cCLK_PER;
 
 -- addi
 	s_OP		<= "001000";
 	s_FUNCT		<= "000000";
+	s_OVFL		<= '0';
+	wait for cCLK_PER;
+    
+-- addi (ovfl)
+	s_OP		<= "001000";
+	s_FUNCT		<= "000000";
+	s_OVFL		<= '1';
 	wait for cCLK_PER;
     
 -- addiu
 	s_OP		<= "001001";
 	s_FUNCT		<= "000000";
+	s_OVFL		<= '0';
+	wait for cCLK_PER;
+    
+-- addiu (ovfl)
+	s_OP		<= "001001";
+	s_FUNCT		<= "000000";
+	s_OVFL		<= '1';
 	wait for cCLK_PER;
     
 -- addu
 	s_OP		<= "000000";
 	s_FUNCT		<= "100001";
+	s_OVFL		<= '0';
+	wait for cCLK_PER;
+    
+-- addu (ovfl)
+	s_OP		<= "000000";
+	s_FUNCT		<= "100001";
+	s_OVFL		<= '1';
 	wait for cCLK_PER;
     
 -- and
 	s_OP		<= "000000";
 	s_FUNCT		<= "100100";
+	s_OVFL		<= '0';
 	wait for cCLK_PER;
     
 -- andi
@@ -173,12 +211,20 @@ begin
 -- sub
 	s_OP		<= "000000";
 	s_FUNCT		<= "100010";
+	s_OVFL		<= '0';
+	wait for cCLK_PER;
+    
+-- sub (ovfl)
+	s_OP		<= "000000";
+	s_FUNCT		<= "100010";
+	s_OVFL		<= '1';
 	wait for cCLK_PER;
     
 -- beq
 	s_OP		<= "000100";
 	s_FUNCT		<= "000000";
 	s_ZERO		<= '0';
+	s_OVFL		<= '0';
 	wait for cCLK_PER;
     
 -- bne
