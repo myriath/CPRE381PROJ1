@@ -2,8 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 
 entity control is 
-	port(	i_OP	: in std_logic_vector(5 downto 0);
-		i_FUNCT	: in std_logic_vector(5 downto 0);
+	port(	i_INST	: in std_logic_vector(31 downto 0);
 		i_ZERO	: in std_logic;
 		i_OVFL	: in std_logic;
 		RegDst	: out std_logic;
@@ -22,12 +21,14 @@ entity control is
 		Overflow	: out std_logic;
 		SLT		: out std_logic;
 		MOVN		: out std_logic;
+		REPL		: out std_logic;
 		Halt	: out std_logic
 );
 end control;
 
 architecture behavioral of control is
 
+signal i_OP, i_FUNCT	: std_logic_vector(5 downto 0);
 signal top2	: std_logic_vector(1 downto 0);
 signal top4	: std_logic_vector(3 downto 0);
 signal bot3	: std_logic_vector(2 downto 0);
@@ -35,8 +36,14 @@ signal top5	: std_logic_vector(4 downto 0);
 signal noOp	: std_logic;
 signal jr	: std_logic;
 signal MemReadS	: std_logic;
+signal replSig	: std_logic;
 
 begin
+
+i_OP	 <= i_INST(31 downto 26);
+i_FUNCT	 <= i_INST(5 downto 0);
+
+replSig	 <= '1' when (i_OP = "011111" and i_INST(10 downto 0) = "00010010010") else '0';
 
 top2	 <= i_OP(5 downto 4);
 top4	 <= i_OP(5 downto 2);
@@ -60,7 +67,7 @@ ALUOp	 <= 	x"0" when ((noOp = '1' and i_FUNCT = "100100") or i_OP = "001100") el
 		x"5" when (noOp = '1' and i_FUNCT = "000000") else
 		x"6" when (noOp = '1' and i_FUNCT = "000010") else
 		x"7" when (noOp = '1' and i_FUNCT = "000011") else
-		x"8" when (i_OP = "011111" and i_FUNCT = "010010") else
+		x"8" when (replSig = '1') else
 		x"9" when (noOp = '1' and i_FUNCT = "100111") else
 		x"a" when (i_OP = "001111") else
 --		x"b" when () else
@@ -78,6 +85,7 @@ o_JR	 <= '1' when (jr = '1') else '0';
 Overflow <= '1' when (i_OVFL = '1' and ((noOp = '1' and (i_FUNCT = "100000" or i_FUNCT = "100010")) or i_OP = "001000")) else '0';
 SLT	 <= '1' when (i_OP = "001010" or (noOp = '1' and i_FUNCT = "101010")) else '0';
 MOVN	 <= '1' when (noOp = '1' and i_FUNCT = "001011") else '0';
+REPL	 <= replSig;
 Halt	 <= '1' when (i_OP = "010100") else '0';
 
 end behavioral;

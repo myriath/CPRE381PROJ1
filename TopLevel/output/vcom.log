@@ -1,6 +1,6 @@
 QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
-Start time: 13:09:36 on Nov 02,2022
-vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src/MIPS_types.vhd proj/src/Basic/xorg2.vhd proj/src/Basic/dffgSpecial.vhd proj/src/Basic/n_dff.vhd proj/src/Basic/andg2.vhd proj/src/Basic/5x32decoder.vhd proj/src/Basic/org2.vhd proj/src/Basic/dffg.vhd proj/src/Basic/mux32t1.vhd proj/src/ALU/ALU.vhd proj/src/ALU/FullAdder.vhd proj/src/ALU/AddSub.vhd proj/src/ALU/Barrel_Shifter.vhd proj/src/ALU/Nor.vhd proj/src/Control/control.vhd proj/src/PC/pc.vhd proj/src/TopLevel/MIPS_Processor.vhd proj/src/TopLevel/mem.vhd proj/src/RegFile/regfile.vhd 
+Start time: 14:54:07 on Nov 09,2022
+vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src/MIPS_types.vhd proj/src/Basic/xorg2.vhd proj/src/Basic/dffgSpecial.vhd proj/src/Basic/n_dff.vhd proj/src/Basic/andg2.vhd proj/src/Basic/5x32decoder.vhd proj/src/Basic/org2.vhd proj/src/Basic/dffg.vhd proj/src/Basic/mux32t1.vhd proj/src/Basic/Nor.vhd proj/src/ALU/ALU.vhd proj/src/ALU/FullAdder.vhd proj/src/ALU/AddSub.vhd proj/src/ALU/Barrel_Shifter.vhd proj/src/Control/control.vhd proj/src/PC/pc.vhd proj/src/TopLevel/MIPS_Processor.vhd proj/src/TopLevel/mem.vhd proj/src/RegFile/regfile.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
@@ -29,6 +29,8 @@ vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src
 -- Loading package muxpkg
 -- Compiling entity mux32t1
 -- Compiling architecture dataflow of mux32t1
+-- Compiling entity Norg
+-- Compiling architecture dataflow of Norg
 -- Compiling entity ALU
 -- Compiling architecture mixed of ALU
 -- Compiling entity FullAdder
@@ -38,8 +40,6 @@ vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src
 -- Loading package NUMERIC_STD
 -- Compiling entity Barrel_Shifter
 -- Compiling architecture mixed of Barrel_Shifter
--- Compiling entity Nor2
--- Compiling architecture dataflow of Nor2
 -- Compiling entity control
 -- Compiling architecture behavioral of control
 -- Compiling entity pc
@@ -47,7 +47,11 @@ vcom -2008 -work internal/ModelSimContainer/work internal/testpy/tb.vhd proj/src
 -- Loading package MIPS_types
 -- Compiling entity MIPS_Processor
 -- Compiling architecture structure of MIPS_Processor
-** Error: proj/src/TopLevel/MIPS_Processor.vhd(179): (vcom-1484) Unknown formal identifier "SLT".
-** Note: proj/src/TopLevel/MIPS_Processor.vhd(230): VHDL Compiler exiting
-End time: 13:09:36 on Nov 02,2022, Elapsed time: 0:00:00
-Errors: 1, Warnings: 0
+** Error: proj/src/TopLevel/MIPS_Processor.vhd(163): (vcom-1484) Unknown formal identifier "i_INST".
+** Error: proj/src/TopLevel/MIPS_Processor.vhd(182): (vcom-1484) Unknown formal identifier "REPL".
+** Error: proj/src/TopLevel/MIPS_Processor.vhd(183): (vcom-1035) Formal port "i_OP" has OPEN or no actual associated with it.
+** Error: proj/src/TopLevel/MIPS_Processor.vhd(183): (vcom-1035) Formal port "i_FUNCT" has OPEN or no actual associated with it.
+** Warning: proj/src/TopLevel/MIPS_Processor.vhd(186): (vcom-1272) Length of expected is 32; length of slice name is 8.
+** Note: proj/src/TopLevel/MIPS_Processor.vhd(234): VHDL Compiler exiting
+End time: 14:54:07 on Nov 09,2022, Elapsed time: 0:00:00
+Errors: 4, Warnings: 1

@@ -3,7 +3,7 @@ Reading pref.tcl
 # 2022.2
 
 # vsim -postsimdataflow -debugdb -c -voptargs=""+acc"" tb -do "modelsim_framework.do" -gOUTPUT_TRACE=ms.trace 
-# Start time: 14:05:25 on Nov 02,2022
+# Start time: 15:04:57 on Nov 09,2022
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vsim-8611) Generating debug db.
 # ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
@@ -39,7 +39,7 @@ Reading pref.tcl
 # Loading work.andg2(dataflow)#1
 # Loading work.org2(dataflow)#1
 # Loading work.xorg2(dataflow)#1
-# Loading work.nor2(dataflow)#1
+# Loading work.norg(dataflow)#1
 # Loading work.addsub(structure)#1
 # Loading work.fulladder(structure)#1
 # Loading work.muxpkg
@@ -54,8 +54,6 @@ Reading pref.tcl
 #    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/ProgramCounter
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 #    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/ProgramCounter
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/MathUnit/g_Barrel_Shifter
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 #    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/DMem
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
@@ -73,8 +71,8 @@ Reading pref.tcl
 # ** Note: Data structure takes 54507936 bytes of memory
 #          Process time 0.05 seconds
 #          stop
-#    Time: 420 ns  Iteration: 1  Instance: /tb
+#    Time: 440 ns  Iteration: 1  Instance: /tb
 # Break in Process P_DUMP_STATE at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 149
 # Stopped at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 149
-# End time: 14:05:29 on Nov 02,2022, Elapsed time: 0:00:04
-# Errors: 0, Warnings: 11
+# End time: 15:05:00 on Nov 09,2022, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 10

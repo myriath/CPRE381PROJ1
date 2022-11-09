@@ -94,8 +94,7 @@ architecture structure of MIPS_Processor is
   end component;
 
   component control is port(
-	i_OP		: in std_logic_vector(5 downto 0);
-	i_FUNCT		: in std_logic_vector(5 downto 0);
+	i_INST		: in std_logic_vector(31 downto 0);
 	i_ZERO		: in std_logic;
 	i_OVFL		: in std_logic;
 	RegDst		: out std_logic;
@@ -114,6 +113,7 @@ architecture structure of MIPS_Processor is
 	Overflow	: out std_logic;
 	SLT		: out std_logic;
 	MOVN		: out std_logic;
+	REPL		: out std_logic;
 	Halt		: out std_logic);
   end component;
 
@@ -130,7 +130,7 @@ architecture structure of MIPS_Processor is
   end component;
 
   signal s_zero, s_Overflow, s_TRegWr		: std_logic;
-  signal s_control	: std_logic_vector(15 downto 0);
+  signal s_control	: std_logic_vector(16 downto 0);
   signal s_extend, s_regread0, s_alua, s_alub, s_alures, s_aluormem, s_pcplus4	: std_logic_vector(31 downto 0);
 
 begin
@@ -160,8 +160,7 @@ begin
 
   -- TODO: Ensure that s_Halt is connected to an output control signal produced from decoding the Halt instruction (Opcode: 01 0100)
   ControlUnit: control
-	port map(	i_OP		=> s_Inst(31 downto 26),
-			i_FUNCT		=> s_Inst(5 downto 0),
+	port map(	i_INST		=> s_Inst,
 			i_ZERO		=> s_zero,
 			i_OVFL		=> s_Overflow,
 			RegDst		=> s_control(0),
@@ -180,6 +179,7 @@ begin
 			Overflow	=> s_Ovfl,
 			SLT		=> s_control(14),
 			MOVN		=> s_control(15),
+			REPL		=> s_control(16),
 			Halt		=> s_Halt);
 
   -- TODO: Ensure that s_Ovfl is connected to the overflow output of your ALU
@@ -213,7 +213,8 @@ begin
   s_RegWr		<= '0' when (s_control(15) = '1' and (s_DMemData = x"00000000")) else s_TRegWr;
   s_extend		<= x"ffff" & s_Inst(15 downto 0) when (s_Inst(15) = '1' and s_control(11) = '1') else
 			   x"0000" & s_Inst(15 downto 0);
-  s_alub		<= s_DMemData when (s_control(10) = '0') else
+  s_alub		<= x"000000" & s_Inst(23 downto 16) when (s_control(16) = '1') else
+			   s_DMemData when (s_control(10) = '0') else
 			   s_extend;
 
 
