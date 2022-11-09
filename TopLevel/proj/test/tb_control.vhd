@@ -31,12 +31,13 @@ architecture behavior of tb_control is
 		o_JR	: out std_logic;
 		Overflow	: out std_logic;
 		SLT	: out std_logic;
+		MOVN		: out std_logic;
 		Halt	: out std_logic);
   end component;
 
   -- Temporary signals to connect to the dff component.
   signal s_CLK, s_RST : std_logic;
-  signal s_Halt, s_SignExtend, s_Shift, s_ZERO, s_RegDst, s_Jump, s_Branch, s_Reg31, s_MemRead, s_MemtoReg, s_MemWrite, s_ALUSrc, s_RegWrite, s_JR, s_Overflow, s_OVFL, s_SLT : std_logic;
+  signal s_Halt, s_SignExtend, s_Shift, s_ZERO, s_RegDst, s_Jump, s_Branch, s_Reg31, s_MemRead, s_MemtoReg, s_MemWrite, s_ALUSrc, s_RegWrite, s_JR, s_Overflow, s_OVFL, s_SLT, s_MOVN : std_logic;
   signal s_OP, s_FUNCT : std_logic_vector(5 downto 0);
   signal s_ALUOp : std_logic_vector(3 downto 0);
 
@@ -62,6 +63,7 @@ begin
 		o_JR	=> s_JR,
 		Overflow	=> s_Overflow,
 		SLT	=> s_SLT,
+		MOVN	=> s_MOVN,
 		Halt	=> s_Halt);
 
   -- This process sets the clock value (low for gCLK_HPER, then high

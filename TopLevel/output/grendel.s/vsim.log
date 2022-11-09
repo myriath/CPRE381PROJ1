@@ -3,7 +3,7 @@ Reading pref.tcl
 # 2022.2
 
 # vsim -postsimdataflow -debugdb -c -voptargs=""+acc"" tb -do "modelsim_framework.do" -gOUTPUT_TRACE=ms.trace 
-# Start time: 15:36:48 on Nov 02,2022
+# Start time: 16:05:33 on Nov 02,2022
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vsim-8611) Generating debug db.
 # ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
@@ -319,10 +319,10 @@ Reading pref.tcl
 # ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -28 is not in bounds of subtype NATURAL.
 #    Time: 42180 ns  Iteration: 9  Instance: /tb/MyMips/ProgramCounter
 # ** Note: Data structure takes 54507936 bytes of memory
-#          Process time 0.41 seconds
+#          Process time 0.34 seconds
 #          stop
 #    Time: 42340 ns  Iteration: 1  Instance: /tb
 # Break in Process P_DUMP_STATE at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 149
 # Stopped at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 149
-# End time: 15:36:52 on Nov 02,2022, Elapsed time: 0:00:04
+# End time: 16:05:38 on Nov 02,2022, Elapsed time: 0:00:05
 # Errors: 0, Warnings: 135

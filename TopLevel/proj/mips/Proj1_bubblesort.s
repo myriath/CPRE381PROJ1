@@ -40,3 +40,5 @@ addi $t0, $t0, 1
 cond0:
 slt $t3, $t0, $s4
 beq $t3, $s2, loop0
+
+halt

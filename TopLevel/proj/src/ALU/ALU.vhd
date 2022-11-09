@@ -53,7 +53,7 @@ component org2 is
 		o_F	: out std_logic);
 end component;
 
-component Nor2 is
+component Norg is
 	port(	i_A	: in std_logic;
 		i_B	: in std_logic;
 		o_F	: out std_logic);
@@ -132,7 +132,7 @@ g_Xorg_N: for i in 0 to N-1 generate
 end generate g_Xorg_N;
 
 g_Nor2_N: for i in 0 to N-1 generate
-	Nor2i: Nor2 port map(
+	Nor2i: Norg port map(
 		i_A	=>  i_A(i),
 		i_B	=>  i_B(i),
 		o_F	=> s_Nor(i));

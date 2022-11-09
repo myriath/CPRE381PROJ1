@@ -3,7 +3,7 @@ Reading pref.tcl
 # 2022.2
 
 # vsim -postsimdataflow -debugdb -c -voptargs=""+acc"" tb -do "modelsim_framework.do" -gOUTPUT_TRACE=ms.trace 
-# Start time: 12:11:55 on Nov 02,2022
+# Start time: 17:43:58 on Nov 04,2022
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vsim-8611) Generating debug db.
 # ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
@@ -39,7 +39,7 @@ Reading pref.tcl
 # Loading work.andg2(dataflow)#1
 # Loading work.org2(dataflow)#1
 # Loading work.xorg2(dataflow)#1
-# Loading work.nor2(dataflow)#1
+# Loading work.norg(dataflow)#1
 # Loading work.addsub(structure)#1
 # Loading work.fulladder(structure)#1
 # Loading work.muxpkg
@@ -54,8 +54,6 @@ Reading pref.tcl
 #    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/ProgramCounter
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 #    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/ProgramCounter
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/MathUnit/g_Barrel_Shifter
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 #    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/DMem
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
@@ -72,11 +70,11 @@ Reading pref.tcl
 #    Time: 0 ns  Iteration: 10  Instance: /tb/MyMips/DMem
 # ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -89984 is not in bounds of subtype NATURAL.
 #    Time: 420 ns  Iteration: 7  Instance: /tb/MyMips/ProgramCounter
-# ** Note: Data structure takes 54802896 bytes of memory
-#          Process time 0.11 seconds
+# ** Note: Data structure takes 54671824 bytes of memory
+#          Process time 0.08 seconds
 #          stop
 #    Time: 460 ns  Iteration: 1  Instance: /tb
 # Break in Process P_DUMP_STATE at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 149
 # Stopped at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 149
-# End time: 12:11:58 on Nov 02,2022, Elapsed time: 0:00:03
-# Errors: 0, Warnings: 12
+# End time: 17:44:01 on Nov 04,2022, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 11

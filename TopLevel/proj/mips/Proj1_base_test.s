@@ -25,7 +25,7 @@ sll	$15, $3, 2
 srl	$16, $15, 2
 sra	$17, $15, 2
 sub	$18, $3, $2
-#repl.qb	$19, $3
+repl.qb	$19, 0x7f
 movn	$20, $3, $2
 
 halt
