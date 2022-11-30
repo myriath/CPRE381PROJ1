@@ -146,6 +146,7 @@ begin
             write(my_line, string'("Execution is stopping! Clock Cycle: "));
             write(my_line, cycle_cnt);
             writeline(my_dump, my_line);
+            file_close(my_dump);
             stop(2);
         end if;
         cycle_cnt := cycle_cnt + 1;

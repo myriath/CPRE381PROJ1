@@ -3,7 +3,7 @@ Reading pref.tcl
 # 2022.2
 
 # vsim -postsimdataflow -debugdb -c -voptargs=""+acc"" tb -do "modelsim_framework.do" -gOUTPUT_TRACE=ms.trace 
-# Start time: 12:12:37 on Nov 02,2022
+# Start time: 16:10:11 on Nov 16,2022
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vsim-8611) Generating debug db.
 # ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
@@ -29,9 +29,9 @@ Reading pref.tcl
 # Loading ieee.std_logic_textio(body)
 # Loading std.env(body)
 # Loading work.tb(mixed)#1
+# Loading ieee.numeric_std(body)
 # Loading work.mips_types(body)
 # Loading work.mips_processor(structure)#1
-# Loading ieee.numeric_std(body)
 # Loading work.mem(rtl)#1
 # Loading work.control(behavioral)#1
 # Loading work.alu(mixed)#1
@@ -39,42 +39,27 @@ Reading pref.tcl
 # Loading work.andg2(dataflow)#1
 # Loading work.org2(dataflow)#1
 # Loading work.xorg2(dataflow)#1
-# Loading work.nor2(dataflow)#1
+# Loading work.norg(dataflow)#1
 # Loading work.addsub(structure)#1
 # Loading work.fulladder(structure)#1
 # Loading work.muxpkg
 # Loading work.regfile(mixed)#1
 # Loading work.n_dff(structural)#1
 # Loading work.dffg(mixed)#1
-# Loading work.pc(behavioral)#1
 # Loading work.dffgspecial(mixed)#1
+# Loading work.n_dff(structural)#2
+# Loading work.n_dff(structural)#3
 # ** Note: (vsim-8900) Creating design debug database vsim.dbg.
 # do modelsim_framework.do
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/ProgramCounter
+#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/ProgramCounter
+#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/MathUnit/g_Barrel_Shifter
+#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 #    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/DMem
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 #    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/IMem
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 1  Instance: /tb/MyMips/ProgramCounter
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 3  Instance: /tb/MyMips/DMem
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 4  Instance: /tb/MyMips/DMem
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 5  Instance: /tb/MyMips/DMem
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ns  Iteration: 10  Instance: /tb/MyMips/DMem
-# ** Note: Data structure takes 54802896 bytes of memory
-#          Process time 0.10 seconds
-#          stop
-#    Time: 240 ns  Iteration: 1  Instance: /tb
-# Break in Process P_DUMP_STATE at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 149
-# Stopped at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 149
-# End time: 12:12:40 on Nov 02,2022, Elapsed time: 0:00:03
-# Errors: 0, Warnings: 11
+# End time: 16:10:15 on Nov 16,2022, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 6
