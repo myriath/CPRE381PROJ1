@@ -92,17 +92,16 @@ architecture structure of MIPS_Processor is
 	i_A		: in std_logic_vector(N-1 downto 0);
 	i_B		: in std_logic_vector(N-1 downto 0);
 	o_Result	: out std_logic_vector(N-1 downto 0);
-	o_Zero		: out std_logic;
 	o_OverFlow	: out std_logic);
   end component;
 
   component control is port(
 	i_INST		: in std_logic_vector(31 downto 0);
-	i_ZERO		: in std_logic;
 	i_OVFL		: in std_logic;
 	RegDst		: out std_logic;
 	Jump		: out std_logic;
-	Branch		: out std_logic;
+	BranchP		: out std_logic;
+	BranchN		: out std_logic;
 	Reg31		: out std_logic;
 	MemRead		: out std_logic;
 	MemtoReg	: out std_logic;
@@ -141,12 +140,12 @@ architecture structure of MIPS_Processor is
   end component;
 
   signal s_WBL2, s_WBL3, s_WBL4, s_ML2, s_ML3, s_EXL2, s_equal, s_EQUAL2, s_EQUAL3, s_EQUAL4	: std_logic;
-  signal s_zero, s_Overflow, s_TRegWr		: std_logic;
-  signal s_control, s_C2, s_C3, s_C4	: std_logic_vector(19 downto 0);
+  signal s_Overflow, s_TRegWr		: std_logic;
+  signal s_control, s_C2, s_C3, s_C4	: std_logic_vector(20 downto 0);
   signal s_extend, s_EXTEND2, s_regread0, s_regread1, s_alua, s_alub, s_alures, s_aluormem, s_INST2, s_INST3, s_INST4, s_INST5, s_REGA2, s_REGA3, s_REGA4, s_REGB2, s_ALUOUT, s_ALUOUT2, s_DMEMIN, s_DMEMIN2, s_DMEMOUT2	: std_logic_vector(31 downto 0);
 
   -- PC
-  signal s_pcint, s_pcint2, s_immed	: integer;
+  signal s_pcint, s_pcint2, s_bImmed	: integer;
   signal s_BRANCH2, s_BRANCH3, s_BRANCH4, s_JUMP2, s_JUMP3, s_JUMP4, s_pcplus4, s_PCP4, s_PCP43, s_PCP42, s_PCP41, s_pcNext, s_jAddr, s_bAddr	: std_logic_vector(31 downto 0);
 
   signal s_stall		: std_logic;
@@ -180,11 +179,11 @@ begin
   -- TODO: Ensure that s_Halt is connected to an output control signal produced from decoding the Halt instruction (Opcode: 01 0100)
   ControlUnit: control
 	port map(	i_INST		=> s_INST2,
-			i_ZERO		=> s_zero,
 			i_OVFL		=> s_Overflow,
 			RegDst		=> s_control(0),
 			Jump		=> s_control(1),
-			Branch		=> s_control(2),
+			BranchP		=> s_control(2),
+			BranchN		=> s_control(20),
 			Reg31		=> s_control(3),
 			MemRead		=> s_control(4),
 			MemtoReg	=> s_control(5),
@@ -208,7 +207,6 @@ begin
 			i_A		=> s_alua,
 			i_B		=> s_alub,
 			o_Result	=> s_alures,
-			o_Zero		=> s_zero,
 			o_OverFlow	=> s_Overflow);
   s_DMemAddr		<= s_ALUOUT(N-1 downto 0);
   s_aluormem		<= s_DMEMOUT2 when (s_C4(5) = '1') else s_ALUOUT2;
@@ -221,7 +219,7 @@ begin
 			   s_REGA4 when (s_C4(15) = '1' and not (s_DMEMIN2 = x"00000000")) else 
 			   s_aluormem when (s_C4(3) = '0') else
 			   s_PCP43;
-  s_RegWrAddr		<= "11111" when (s_C4(3) = '1') else 
+  s_RegWrAddr		<= "11111" when (s_C4(3) = '1') else
 			   s_INST5(20 downto 16) when (s_C4(0) = '0') else 
 			   s_INST5(15 downto 11);
   Registers: regfile
@@ -243,15 +241,15 @@ begin
 
   s_pcint		<= to_integer(unsigned(s_IMemAddr) + 4);
   s_pcint2		<= to_integer(unsigned(s_PCP4));
-  s_immed		<= to_integer(unsigned(s_INST2(25 downto 0) & "00"));
+  s_bImmed		<= to_integer(unsigned(s_extend(29 downto 0) & "00"));
   s_pcplus4		<= std_logic_vector(to_signed(s_pcint, 32));
   s_jAddr		<= s_PCP4(31 downto 28) & s_INST2(25 downto 0) & "00";
-  s_bAddr		<= std_logic_vector(to_signed(s_pcint2 + s_immed, 32));
+  s_bAddr		<= std_logic_vector(to_signed(s_pcint2 + s_bImmed, 32));
   s_equal		<= '1' when s_regread0 = s_regread1 else '0';
 
   s_pcNext		<= s_regread0 when (s_control(13) = '1') else
-			   s_JUMP4    when (s_C4(1)  = '1') else
-			   s_BRANCH4  when (s_C4(2)  = '1' and s_EQUAL4 = '1') else
+			   s_jAddr    when (s_control(1)  = '1') else
+			   s_bAddr  when ((s_control(2)  = '1' and s_equal = '1') or (s_control(20) = '1' and s_equal = '0')) else
 			   s_pcplus4;
 
   PCP4: n_dff
