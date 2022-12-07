@@ -3,11 +3,11 @@ use IEEE.std_logic_1164.all;
 
 entity control is 
 	port(	i_INST	: in std_logic_vector(31 downto 0);
-		i_ZERO	: in std_logic;
 		i_OVFL	: in std_logic;
 		RegDst	: out std_logic;
 		Jump	: out std_logic;
-		Branch	: out std_logic;
+		BranchP	: out std_logic;
+		BranchN	: out std_logic;
 		Reg31	: out std_logic;
 		MemRead	: out std_logic;	
 		MemtoReg	: out std_logic;	
@@ -60,8 +60,10 @@ RegDst	 <= '0' when (i_INST = x"00000000") else
             '1' when (noOp = '1' or (i_OP = "011111" and i_FUNCT = "010010")) else '0';
 Jump	 <= '0' when (i_INST = x"00000000") else
             '1' when (top5 = "00001" or (noOp = '1' and jr = '1')) else '0';
-Branch	 <= '0' when (i_INST = x"00000000") else
-            '1' when ((i_OP = "000100" and i_ZERO = '1') or (i_OP = "000101" and i_ZERO = '0')) else '0';
+BranchP	 <= '0' when (i_INST = x"00000000") else
+            '1' when (i_OP = "000100") else '0';
+BranchN	 <= '0' when (i_INST = x"00000000") else
+            '1' when (i_OP = "000101") else '0';
 Reg31	 <= '0' when (i_INST = x"00000000") else
             '1' when (i_OP = "000011") else '0';
 MemRead	 <= MemReadS;

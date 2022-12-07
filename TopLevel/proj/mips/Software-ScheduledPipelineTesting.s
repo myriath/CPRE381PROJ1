@@ -3,7 +3,7 @@ main:
 	add $zero $zero $zero
 	add $zero $zero $zero
 	add $zero $zero $zero
-	lui $t2 0X1001
+	lui $t2 0x1001
 	add $zero $zero $zero
 	add $zero $zero $zero
 	add $zero $zero $zero
@@ -45,7 +45,7 @@ skip2:
 	add $zero $zero $zero
 	add $zero $zero $zero
 	add $zero $zero $zero
-	addi $s3 $s3 0X0032
+	addi $s3 $s3 0x0032
 	add $zero $zero $zero
 	add $zero $zero $zero
 	add $zero $zero $zero
@@ -57,7 +57,11 @@ skip2:
 	add $zero $zero $zero
 	add $zero $zero $zero
 	add $zero $zero $zero
-	addiu $t0 $ra 0xF02255
+	lui $t0 0x00f0
+	add $zero $zero $zero
+	add $zero $zero $zero
+	add $zero $zero $zero
+	addiu $t0 $ra 0x2255
 	add $zero $zero $zero
 	add $zero $zero $zero
 	add $zero $zero $zero
