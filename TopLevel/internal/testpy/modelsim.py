@@ -75,7 +75,7 @@ class Modelsim:
 
         to_compile = []
 
-        if pathlib.Path().is_file():
+        if pathlib.Path('proj/src/MIPS_types.vhd').is_file():
             logger.info(f'Found MIPS_types file')
             to_compile.append("proj/src/MIPS_types.vhd")
 
@@ -122,7 +122,7 @@ class Modelsim:
                     stdout=sim_log,
                     stderr=sim_log,
                     cwd=directory,
-                    timeout=timeout, # If the do file doesn't reach the 'quit' we need to manually kill the process 
+                    timeout=timeout+5, # If the do file doesn't reach the 'quit' we need to manually kill the process 
                     env=self.env
                 )
             except subprocess.TimeoutExpired as e:

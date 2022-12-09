@@ -26,7 +26,6 @@ generic(N	: integer	:= 32);
        i_A          : in std_logic_vector(N-1 downto 0);
        i_B          : in std_logic_vector(N-1 downto 0);
        o_Result        : out std_logic_vector(N-1 downto 0);
-       o_Zero          : out std_logic;
        o_OverFlow      : out std_logic);
 
 end ALU;
@@ -144,7 +143,6 @@ g_addsub: addsub port map(
 		i_ADDSUB => s_ADDSUBC,
 		o_S	=> s_AddSub,
 		o_C	=> s_Carry);
-o_Zero <= '1' when (s_AddSub = x"00000000") else '0';
 
 OverflowXor: xorg2
     port MAP(i_A             => s_Carry(N-1),

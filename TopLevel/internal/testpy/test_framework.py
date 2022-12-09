@@ -172,12 +172,24 @@ class SimWorker:
         modelsim_msg = self.ms.sim(self.container, "ms.trace", "vsim.log", timeout=self.options.sim_timeout)
         compare, compare_out, inst, cycles = compare_dumps(self.options, self.container, self.container / "ms.trace", self.container / 'mars.trace')
 
-        try: 
-            shutil.rmtree(f'output/{pathlib.Path(asm_path).name}')
-        except FileNotFoundError: 
-            pass
+        inc_num = 1
+        inc_str = ""
 
-        shutil.copytree(self.container, f'output/{pathlib.Path(asm_path).name}', ignore=shutil.ignore_patterns('modelsim_framework.do', 'transcript'))
+        while True:
+            results.dest_path = f'output/{pathlib.Path(asm_path).name}{inc_str}'
+
+            try: 
+                shutil.rmtree(results.dest_path)
+                break
+            except FileNotFoundError: 
+                break
+            except:
+                print(f'Failed to remove output/{pathlib.Path(asm_path).name}. Is questasim open?')
+                inc_str = f'_{inc_num}'
+                inc_num += 1
+                print(f'Saving instead to "output/{pathlib.Path(asm_path).name}{inc_str}"') 
+
+        shutil.copytree(self.container, results.dest_path, ignore=shutil.ignore_patterns('modelsim_framework.do', 'transcript'))
 
         results.modelsim_pass = True if not modelsim_msg else False
         results.modelsim_errs = modelsim_msg
@@ -187,7 +199,6 @@ class SimWorker:
         results.mars_inst = inst
         results.proc_cycles = cycles
 
-        results.dest_path = f'output/{pathlib.Path(asm_path).name}'
 
         return results
 
@@ -275,7 +286,7 @@ def warn_tb_checksum():
     Assumes file exists. Allows both LF and CRLF line endings.
     '''
     expected = {
-        b'\xe3\xd9.\xfcl\xb3_G\x14Q\x93]\x98\xe7\x101'
+        b'\x9499\xd6\xbb\xa6\xfb\x8a\x0c\xc9y\x9bm\xaa`\xe0'
         }
 
     # copy these lines to generate new expected checksums
