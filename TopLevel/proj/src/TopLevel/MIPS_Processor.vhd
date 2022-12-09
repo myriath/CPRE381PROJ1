@@ -71,6 +71,15 @@ architecture structure of MIPS_Processor is
   -- TODO: You may add any additional signals or components your implementation 
   --       requires below this comment
 
+component Foward is
+	port(	i_RS	: in std_logic_vector(4 downto 0);
+		i_RT	: in std_logic_vector(4 downto 0);
+		i_ExMem	: in std_logic_vector(4 downto 0);
+		i_ExALU	: in std_logic_vector(4 downto 0);
+		o_RS	: out std_logic_vector(1 downto 0);
+		o_RT	: out std_logic_vector(1 downto 0));
+ end component;
+
   component dffgSpecial is port(
 	i_CLK		: in std_logic;
 	i_RST		: in std_logic;
@@ -150,6 +159,7 @@ architecture structure of MIPS_Processor is
 
   signal s_stall		: std_logic;
   signal s_SHAMT2		: std_logic_vector(4 downto 0);
+	signal s_FowardA, s_FowardB	: std_logic_vector(1 downto 0);
 begin
 
   -- TODO: This is required to be your final input to your instruction memory. This provides a feasible method to externally load the memory module which means that the synthesis tool must assume it knows nothing about the values stored in the instruction memory. If this is not included, much, if not all of the design is optimized out because the synthesis tool will believe the memory to be all zeros.
@@ -199,9 +209,22 @@ begin
 			MOVN		=> s_control(15),
 			REPL		=> s_control(16),
 			Halt		=> s_control(19));
+-- TODO: Implementing fowarding 
+	
+ Fowarding: Foward
+		port map(    i_RS	=> s_INST2(25 downto 21),
+			i_RT	=> s_INST2(20 downto 16),
+			i_ExMem	=> s_INST5(15 downto 11),
+			i_ExALU	=> s_INST3(15 downto 11),
+			o_RS	=> s_FowardA,
+			o_RT    => s_FowardB );
 
   -- TODO: Ensure that s_Ovfl is connected to the overflow output of your ALU
   s_alua		<= s_REGA2 when (s_C2(12) = '0') else "000" & x"000000" & s_SHAMT2;
+	s_alua <= s_alua when(s_FowardA = "00")else s_alures when(s_FowardA = "01") else s_aluormem when(s_FowardA =  "10");
+
+	s_alub <= s_alub when(s_FowardB = "00") else s_alures when(s_FowardB = "01") else s_aluormem when(s_FowardB =  "10");
+
   MathUnit: ALU
 	port map(	i_Contral	=> s_C2(9 downto 6),
 			i_A		=> s_alua,

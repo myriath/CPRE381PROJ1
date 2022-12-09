@@ -2,10 +2,10 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 
 entity Foward is 
-	port(	i_RS	: in std_logic_vector(5 downto 0);
-		i_RT	: in std_logic_vector(5 downto 0);
-		i_ExMem	: in std_logic_vector(5 downto 0);
-		i_ExALU	: in std_logic_vector(5 downto 0);
+	port(	i_RS	: in std_logic_vector(4 downto 0);
+		i_RT	: in std_logic_vector(4 downto 0);
+		i_ExMem	: in std_logic_vector(4 downto 0);
+		i_ExALU	: in std_logic_vector(4 downto 0);
 		o_RS	: out std_logic_vector(1 downto 0);
 		o_RT	: out std_logic_vector(1 downto 0));
 end Foward;
