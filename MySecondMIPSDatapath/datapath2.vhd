@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use work.muxpkg.all;
 
-entity datapath2 is
+entity datapath_pipe is
 	port(	i_CLK	: in std_logic;
 		i_RST	: in std_logic;	
 		i_RW	: in std_logic;
@@ -15,9 +15,9 @@ entity datapath2 is
 		i_SRCSEL: in std_logic;
 		i_WSEL	: in std_logic;
 		i_SIGN	: in std_logic);
-end datapath2;
+end datapath_pipe;
 
-architecture mixed of datapath2 is
+architecture mixed of datapath_pipe is
 	signal s_RAMREAD: std_logic_vector(31 downto 0);
 	signal s_REGWRITE: std_logic_vector(31 downto 0);
 	signal s_EXTEND	: std_logic_vector(31 downto 0);
