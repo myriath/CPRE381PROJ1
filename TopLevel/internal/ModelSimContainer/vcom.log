@@ -1,5 +1,5 @@
 QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
-Start time: 21:32:38 on Dec 10,2022
+Start time: 21:40:00 on Dec 10,2022
 vcom -2008 -work internal/ModelSimContainer/work proj/src/MIPS_types.vhd internal/testpy/tb.vhd proj/src/MIPS_types.vhd proj/src/Basic/tffg.vhd proj/src/Basic/flushablereg.vhd proj/src/Basic/notg.vhd proj/src/Basic/flushablereg4.vhd proj/src/Basic/andg6.vhd proj/src/Basic/xorg2.vhd proj/src/Basic/dffgSpecial.vhd proj/src/Basic/n_dff.vhd proj/src/Basic/andg2.vhd proj/src/Basic/5x32decoder.vhd proj/src/Basic/org2.vhd proj/src/Basic/dffg.vhd proj/src/Basic/mux32t1.vhd proj/src/Basic/org5.vhd proj/src/Basic/Nor.vhd proj/src/ALU/ALU.vhd proj/src/ALU/FullAdder.vhd proj/src/ALU/AddSub.vhd proj/src/ALU/Barrel_Shifter.vhd proj/src/Control/controlhazard.vhd proj/src/Control/control.vhd proj/src/Control/Foward.vhd proj/src/PC/pc.vhd proj/src/TopLevel/MIPS_Processor.vhd proj/src/TopLevel/mem.vhd proj/src/RegFile/regfile.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -74,5 +74,5 @@ vcom -2008 -work internal/ModelSimContainer/work proj/src/MIPS_types.vhd interna
 -- Compiling architecture rtl of mem
 -- Compiling entity regfile
 -- Compiling architecture mixed of regfile
-End time: 21:32:38 on Dec 10,2022, Elapsed time: 0:00:00
+End time: 21:40:00 on Dec 10,2022, Elapsed time: 0:00:00
 Errors: 0, Warnings: 2

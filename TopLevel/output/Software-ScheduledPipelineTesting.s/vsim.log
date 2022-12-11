@@ -3,12 +3,8 @@ Reading pref.tcl
 # 2022.2
 
 # vsim -postsimdataflow -debugdb -c -voptargs=""+acc"" tb -do "modelsim_framework.do" -gOUTPUT_TRACE=ms.trace 
-# Start time: 14:35:54 on Dec 07,2022
-# ** Note: (vsim-3812) Design is being optimized...
-# ** Note: (vsim-8611) Generating debug db.
-# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
-# ** Note: (vopt-4301) Memory core inferred for signal 'ram' width=32, depth=1024, type=RAM at location proj/src/TopLevel/mem.vhd:35
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Start time: 21:41:25 on Dec 10,2022
+# ** Note: (vsim-8009) Loading existing optimized design _opt
 # //  Questa Sim-64
 # //  Version 2022.2 linux_x86_64 Apr 25 2022
 # //
@@ -34,6 +30,11 @@ Reading pref.tcl
 # Loading work.mips_processor(structure)#1
 # Loading work.mem(rtl)#1
 # Loading work.control(behavioral)#1
+# Loading work.foward(behavioral)#1
+# Loading work.controlhazards(behavioral)#1
+# Loading work.notg(dataflow)#1
+# Loading work.andg6(dataflow)#1
+# Loading work.org5(dataflow)#1
 # Loading work.alu(mixed)#1
 # Loading work.barrel_shifter(mixed)#1
 # Loading work.andg2(dataflow)#1
@@ -46,10 +47,13 @@ Reading pref.tcl
 # Loading work.regfile(mixed)#1
 # Loading work.n_dff(structural)#1
 # Loading work.dffg(mixed)#1
+# Loading work.flush_reg(structural)#1
 # Loading work.dffgspecial(mixed)#1
+# Loading work.flush_reg(structural)#2
 # Loading work.n_dff(structural)#2
 # Loading work.n_dff(structural)#3
-# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# Loading work.flush_reg(structural)#3
+# ** Note: (vsim-8716) Reusing existing debug database vsim.dbg.
 # do modelsim_framework.do
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 #    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips
@@ -64,12 +68,12 @@ Reading pref.tcl
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 #    Time: 0 ns  Iteration: 1  Instance: /tb/MyMips
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 3820 ns  Iteration: 4  Instance: /tb/MyMips
-# ** Note: Data structure takes 59161832 bytes of memory
-#          Process time 0.06 seconds
+#    Time: 3860 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Note: Data structure takes 59124296 bytes of memory
+#          Process time 0.13 seconds
 #          stop
-#    Time: 3880 ns  Iteration: 1  Instance: /tb
+#    Time: 3920 ns  Iteration: 1  Instance: /tb
 # Break in Process P_DUMP_STATE at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 150
 # Stopped at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 150
-# End time: 14:35:58 on Dec 07,2022, Elapsed time: 0:00:04
-# Errors: 0, Warnings: 8
+# End time: 21:41:26 on Dec 10,2022, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 7
