@@ -33,8 +33,8 @@ Jay:
 	movn $t1 $s0 $s0
 	sub $s0 $s0 $t1
 	slti $s4 $t4 0x256 
-	or $s4 $s4 $t1
-	xor $t1 $s4 $zero
+	or $s4 $s4 $s4
+	xor $s4 $s4 $zero
 	j skip2
 
 fun:
@@ -43,8 +43,8 @@ fun:
 	sub $s3 $s1 $s3
 	
 	nor $s2 $s2 $s1
-
-	jr $ra
+	add $s7 $t4 $s3
+ 	jr $ra
 
 exit:
 	halt
