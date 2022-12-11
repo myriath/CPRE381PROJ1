@@ -3,101 +3,125 @@
 # CprE 381 toolflow Timing dump
 #
 
-FMax: 56.34mhz Clk Constraint: 20.00ns Slack: 2.25ns
+FMax: 37.92mhz Clk Constraint: 20.00ns Slack: -6.37ns
 
 The path is given below
 
  ===================================================================
- From Node    : n_dff:C2|dffg:\G_NDFF:6:DFFI|s_Q
- To Node      : n_dff:ALUOUT|dffg:\G_NDFF:31:DFFI|s_Q
+ From Node    : n_dff:ALUOUT|dffg:\G_NDFF:9:DFFI|s_Q
+ To Node      : n_dff:ALUOUT|dffg:\G_NDFF:30:DFFI|s_Q
  Launch Clock : iCLK
  Latch Clock  : iCLK
  Data Arrival Path:
  Total (ns)  Incr (ns)     Type  Element
  ==========  ========= ==  ====  ===================================
       0.000      0.000           launch edge time
-      3.085      3.085  R        clock network delay
-      3.317      0.232     uTco  n_dff:C2|dffg:\G_NDFF:6:DFFI|s_Q
-      3.317      0.000 FF  CELL  C2|\G_NDFF:6:DFFI|s_Q|q
-      4.122      0.805 FF    IC  MathUnit|Mux2~1|dataa
-      4.551      0.429 FR  CELL  MathUnit|Mux2~1|combout
-      5.124      0.573 RR    IC  MathUnit|g_addsub|\g_B:1:xori|o_F|datab
-      5.558      0.434 RF  CELL  MathUnit|g_addsub|\g_B:1:xori|o_F|combout
-      5.812      0.254 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:1:ori|o_F~0|datac
-      6.093      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:1:ori|o_F~0|combout
-      6.345      0.252 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:2:ori|o_F~0|datad
-      6.470      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:2:ori|o_F~0|combout
-      6.720      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:3:ori|o_F~0|datad
-      6.845      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:3:ori|o_F~0|combout
-      7.095      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:4:ori|o_F~0|datad
-      7.220      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:4:ori|o_F~0|combout
-      7.519      0.299 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:5:ori|o_F~0|dataa
-      7.943      0.424 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:5:ori|o_F~0|combout
-      8.243      0.300 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:6:ori|o_F~0|dataa
-      8.667      0.424 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:6:ori|o_F~0|combout
-      8.925      0.258 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:7:ori|o_F~0|datac
-      9.206      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:7:ori|o_F~0|combout
-      9.454      0.248 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:8:ori|o_F~0|datad
-      9.579      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:8:ori|o_F~0|combout
-      9.827      0.248 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:9:ori|o_F~0|datad
-      9.952      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:9:ori|o_F~0|combout
-     10.211      0.259 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:10:ori|o_F~0|datac
-     10.492      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:10:ori|o_F~0|combout
-     10.750      0.258 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:11:ori|o_F~0|datac
-     11.031      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:11:ori|o_F~0|combout
-     11.287      0.256 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:12:ori|o_F~0|datac
-     11.568      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:12:ori|o_F~0|combout
-     11.818      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:13:ori|o_F~0|datad
-     11.943      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:13:ori|o_F~0|combout
-     12.193      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:14:ori|o_F~0|datad
-     12.318      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:14:ori|o_F~0|combout
-     12.695      0.377 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:15:ori|o_F~0|datad
-     12.820      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:15:ori|o_F~0|combout
-     13.068      0.248 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:16:ori|o_F~0|datad
-     13.193      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:16:ori|o_F~0|combout
-     13.444      0.251 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:17:ori|o_F~0|datad
-     13.569      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:17:ori|o_F~0|combout
-     13.820      0.251 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:18:ori|o_F~0|datad
-     13.945      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:18:ori|o_F~0|combout
-     14.194      0.249 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:19:ori|o_F~0|datad
-     14.319      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:19:ori|o_F~0|combout
-     14.577      0.258 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:20:ori|o_F~0|datac
-     14.858      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:20:ori|o_F~0|combout
-     15.114      0.256 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:21:ori|o_F~0|datac
-     15.395      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:21:ori|o_F~0|combout
-     15.645      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:22:ori|o_F~0|datad
-     15.770      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:22:ori|o_F~0|combout
-     16.026      0.256 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:23:ori|o_F~0|datac
-     16.307      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:23:ori|o_F~0|combout
-     16.557      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:24:ori|o_F~0|datad
-     16.682      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:24:ori|o_F~0|combout
-     16.931      0.249 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:25:ori|o_F~0|datad
-     17.056      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:25:ori|o_F~0|combout
-     17.313      0.257 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:26:ori|o_F~0|datac
-     17.594      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:26:ori|o_F~0|combout
-     17.849      0.255 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:27:ori|o_F~0|datac
-     18.130      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:27:ori|o_F~0|combout
-     18.379      0.249 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:28:ori|o_F~0|datad
-     18.504      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:28:ori|o_F~0|combout
-     18.752      0.248 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:29:ori|o_F~0|datad
-     18.877      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:29:ori|o_F~0|combout
-     19.302      0.425 FF    IC  MathUnit|Mux3~15|datac
-     19.583      0.281 FF  CELL  MathUnit|Mux3~15|combout
-     19.858      0.275 FF    IC  MathUnit|Mux3~16|dataa
-     20.287      0.429 FR  CELL  MathUnit|Mux3~16|combout
-     20.493      0.206 RR    IC  MathUnit|Mux3~18|datad
-     20.648      0.155 RR  CELL  MathUnit|Mux3~18|combout
-     20.648      0.000 RR    IC  ALUOUT|\G_NDFF:31:DFFI|s_Q|d
-     20.735      0.087 RR  CELL  n_dff:ALUOUT|dffg:\G_NDFF:31:DFFI|s_Q
+      3.099      3.099  R        clock network delay
+      3.331      0.232     uTco  n_dff:ALUOUT|dffg:\G_NDFF:9:DFFI|s_Q
+      3.331      0.000 FF  CELL  ALUOUT|\G_NDFF:9:DFFI|s_Q|q
+      5.870      2.539 FF    IC  DMem|ram~35658|datad
+      5.995      0.125 FF  CELL  DMem|ram~35658|combout
+      6.265      0.270 FF    IC  DMem|ram~35659|datab
+      6.690      0.425 FF  CELL  DMem|ram~35659|combout
+      8.137      1.447 FF    IC  DMem|ram~35660|datac
+      8.418      0.281 FF  CELL  DMem|ram~35660|combout
+      8.644      0.226 FF    IC  DMem|ram~35663|datad
+      8.769      0.125 FF  CELL  DMem|ram~35663|combout
+      9.039      0.270 FF    IC  DMem|ram~35664|datab
+      9.395      0.356 FF  CELL  DMem|ram~35664|combout
+     11.054      1.659 FF    IC  DMem|ram~35665|datad
+     11.179      0.125 FF  CELL  DMem|ram~35665|combout
+     11.447      0.268 FF    IC  DMem|ram~35708|datab
+     11.851      0.404 FF  CELL  DMem|ram~35708|combout
+     12.085      0.234 FF    IC  DMem|ram~36220|datac
+     12.365      0.280 FF  CELL  DMem|ram~36220|combout
+     12.782      0.417 FF    IC  s_alubt[1]~68|datad
+     12.907      0.125 FF  CELL  s_alubt[1]~68|combout
+     13.136      0.229 FF    IC  s_alubt[1]~69|datad
+     13.261      0.125 FF  CELL  s_alubt[1]~69|combout
+     13.492      0.231 FF    IC  s_alubt[1]~70|datad
+     13.617      0.125 FF  CELL  s_alubt[1]~70|combout
+     13.899      0.282 FF    IC  MathUnit|g_addsub|\g_B:1:xori|o_F|datac
+     14.179      0.280 FF  CELL  MathUnit|g_addsub|\g_B:1:xori|o_F|combout
+     14.936      0.757 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:1:ori|o_F~0|datac
+     15.217      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:1:ori|o_F~0|combout
+     15.472      0.255 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:2:ori|o_F~0|datac
+     15.753      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:2:ori|o_F~0|combout
+     16.006      0.253 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:3:ori|o_F~0|datad
+     16.131      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:3:ori|o_F~0|combout
+     16.383      0.252 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:4:ori|o_F~0|datad
+     16.508      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:4:ori|o_F~0|combout
+     16.759      0.251 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:5:ori|o_F~0|datad
+     16.884      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:5:ori|o_F~0|combout
+     17.132      0.248 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:6:ori|o_F~0|datad
+     17.257      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:6:ori|o_F~0|combout
+     17.510      0.253 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:7:ori|o_F~0|datad
+     17.635      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:7:ori|o_F~0|combout
+     17.890      0.255 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:8:ori|o_F~0|datac
+     18.171      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:8:ori|o_F~0|combout
+     18.420      0.249 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:9:ori|o_F~0|datad
+     18.545      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:9:ori|o_F~0|combout
+     18.801      0.256 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:10:ori|o_F~0|datac
+     19.082      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:10:ori|o_F~0|combout
+     19.331      0.249 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:11:ori|o_F~0|datad
+     19.456      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:11:ori|o_F~0|combout
+     19.705      0.249 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:12:ori|o_F~0|datad
+     19.830      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:12:ori|o_F~0|combout
+     20.086      0.256 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:13:ori|o_F~0|datac
+     20.367      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:13:ori|o_F~0|combout
+     20.617      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:14:ori|o_F~0|datad
+     20.742      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:14:ori|o_F~0|combout
+     20.992      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:15:ori|o_F~0|datad
+     21.117      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:15:ori|o_F~0|combout
+     21.517      0.400 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:16:ori|o_F~0|datad
+     21.642      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:16:ori|o_F~0|combout
+     21.892      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:17:ori|o_F~0|datad
+     22.017      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:17:ori|o_F~0|combout
+     22.267      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:18:ori|o_F~0|datad
+     22.392      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:18:ori|o_F~0|combout
+     22.642      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:19:ori|o_F~0|datad
+     22.767      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:19:ori|o_F~0|combout
+     23.011      0.244 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:20:ori|o_F~0|datad
+     23.136      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:20:ori|o_F~0|combout
+     23.384      0.248 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:21:ori|o_F~0|datad
+     23.509      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:21:ori|o_F~0|combout
+     23.767      0.258 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:22:ori|o_F~0|datac
+     24.048      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:22:ori|o_F~0|combout
+     24.305      0.257 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:23:ori|o_F~0|datac
+     24.586      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:23:ori|o_F~0|combout
+     24.841      0.255 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:24:ori|o_F~0|datac
+     25.122      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:24:ori|o_F~0|combout
+     25.372      0.250 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:25:ori|o_F~0|datad
+     25.497      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:25:ori|o_F~0|combout
+     25.749      0.252 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:26:ori|o_F~0|datad
+     25.874      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:26:ori|o_F~0|combout
+     26.123      0.249 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:27:ori|o_F~0|datad
+     26.248      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:27:ori|o_F~0|combout
+     26.497      0.249 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:28:ori|o_F~0|datad
+     26.622      0.125 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:28:ori|o_F~0|combout
+     26.878      0.256 FF    IC  MathUnit|g_addsub|g_FullAdder|\g_oC:29:ori|o_F~0|datac
+     27.159      0.281 FF  CELL  MathUnit|g_addsub|g_FullAdder|\g_oC:29:ori|o_F~0|combout
+     27.925      0.766 FF    IC  MathUnit|Mux28~14|datad
+     28.075      0.150 FR  CELL  MathUnit|Mux28~14|combout
+     28.279      0.204 RR    IC  MathUnit|Mux4~0|datad
+     28.434      0.155 RR  CELL  MathUnit|Mux4~0|combout
+     28.638      0.204 RR    IC  MathUnit|Mux4~1|datac
+     28.925      0.287 RR  CELL  MathUnit|Mux4~1|combout
+     29.150      0.225 RR    IC  ALUOUT|\G_NDFF:30:DFFI|s_Q~0|datad
+     29.305      0.155 RR  CELL  ALUOUT|\G_NDFF:30:DFFI|s_Q~0|combout
+     29.508      0.203 RR    IC  ALUOUT|\G_NDFF:30:DFFI|s_Q~feeder|datad
+     29.663      0.155 RR  CELL  ALUOUT|\G_NDFF:30:DFFI|s_Q~feeder|combout
+     29.663      0.000 RR    IC  ALUOUT|\G_NDFF:30:DFFI|s_Q|d
+     29.750      0.087 RR  CELL  n_dff:ALUOUT|dffg:\G_NDFF:30:DFFI|s_Q
  Data Required Path:
  Total (ns)  Incr (ns)     Type  Element
  ==========  ========= ==  ====  ===================================
      20.000     20.000           latch edge time
-     22.955      2.955  R        clock network delay
-     22.987      0.032           clock pessimism removed
-     22.967     -0.020           clock uncertainty
-     22.985      0.018     uTsu  n_dff:ALUOUT|dffg:\G_NDFF:31:DFFI|s_Q
- Data Arrival Time  :    20.735
- Data Required Time :    22.985
- Slack              :     2.250
+     23.347      3.347  R        clock network delay
+     23.379      0.032           clock pessimism removed
+     23.359     -0.020           clock uncertainty
+     23.377      0.018     uTsu  n_dff:ALUOUT|dffg:\G_NDFF:30:DFFI|s_Q
+ Data Arrival Time  :    29.750
+ Data Required Time :    23.377
+ Slack              :    -6.373 (VIOLATED)
  ===================================================================
