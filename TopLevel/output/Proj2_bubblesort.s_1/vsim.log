@@ -1,0 +1,221 @@
+Reading pref.tcl
+
+# 2022.2
+
+# vsim -postsimdataflow -debugdb -c -voptargs=""+acc"" tb -do "modelsim_framework.do" -gOUTPUT_TRACE=ms.trace 
+# Start time: 12:51:23 on Dec 08,2022
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vsim-8611) Generating debug db.
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vopt-4301) Memory core inferred for signal 'ram' width=32, depth=1024, type=RAM at location proj/src/TopLevel/mem.vhd:35
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# //  Questa Sim-64
+# //  Version 2022.2 linux_x86_64 Apr 25 2022
+# //
+# //  Copyright 1991-2022 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_textio(body)
+# Loading std.env(body)
+# Loading work.tb(mixed)#1
+# Loading ieee.numeric_std(body)
+# Loading work.mips_types(body)
+# Loading work.mips_processor(structure)#1
+# Loading work.mem(rtl)#1
+# Loading work.control(behavioral)#1
+# Loading work.alu(mixed)#1
+# Loading work.barrel_shifter(mixed)#1
+# Loading work.andg2(dataflow)#1
+# Loading work.org2(dataflow)#1
+# Loading work.xorg2(dataflow)#1
+# Loading work.norg(dataflow)#1
+# Loading work.addsub(structure)#1
+# Loading work.fulladder(structure)#1
+# Loading work.muxpkg
+# Loading work.regfile(mixed)#1
+# Loading work.n_dff(structural)#1
+# Loading work.dffg(mixed)#1
+# Loading work.dffgspecial(mixed)#1
+# Loading work.n_dff(structural)#2
+# Loading work.n_dff(structural)#3
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# do modelsim_framework.do
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/DMem
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /tb/MyMips/IMem
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 1  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -212 is not in bounds of subtype NATURAL.
+#    Time: 400 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -106360 is not in bounds of subtype NATURAL.
+#    Time: 460 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 620 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 1360 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 2100 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 2840 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 3580 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 4320 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 5060 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 5800 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 6540 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 7280 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -212 is not in bounds of subtype NATURAL.
+#    Time: 7480 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -106360 is not in bounds of subtype NATURAL.
+#    Time: 7540 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 7700 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 8440 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 9180 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 9920 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 10660 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 11400 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 12140 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 12880 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 13620 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -212 is not in bounds of subtype NATURAL.
+#    Time: 13820 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -106360 is not in bounds of subtype NATURAL.
+#    Time: 13880 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 14040 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 14780 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 15520 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 16260 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 17 us  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 17740 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 18480 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 19220 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -212 is not in bounds of subtype NATURAL.
+#    Time: 19420 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -106360 is not in bounds of subtype NATURAL.
+#    Time: 19480 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 19640 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 20380 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 21120 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 21860 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 22600 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 23340 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 24080 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -212 is not in bounds of subtype NATURAL.
+#    Time: 24280 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -106360 is not in bounds of subtype NATURAL.
+#    Time: 24340 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 24500 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 25240 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 25980 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 26720 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 27460 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 28200 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -212 is not in bounds of subtype NATURAL.
+#    Time: 28400 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -106360 is not in bounds of subtype NATURAL.
+#    Time: 28460 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 28620 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 29360 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 30100 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 30840 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 31580 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -212 is not in bounds of subtype NATURAL.
+#    Time: 31780 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -106360 is not in bounds of subtype NATURAL.
+#    Time: 31840 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 32 us  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 32740 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 33480 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 34220 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -212 is not in bounds of subtype NATURAL.
+#    Time: 34420 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -106360 is not in bounds of subtype NATURAL.
+#    Time: 34480 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 34640 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 35380 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 36120 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -212 is not in bounds of subtype NATURAL.
+#    Time: 36320 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -106360 is not in bounds of subtype NATURAL.
+#    Time: 36380 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 36540 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -152 is not in bounds of subtype NATURAL.
+#    Time: 37280 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: (vsim-151) NUMERIC_STD.TO_INTEGER: Value -212 is not in bounds of subtype NATURAL.
+#    Time: 37480 ns  Iteration: 7  Instance: /tb/MyMips
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 37540 ns  Iteration: 4  Instance: /tb/MyMips
+# ** Note: Data structure takes 59424000 bytes of memory
+#          Process time 0.31 seconds
+#          stop
+#    Time: 37600 ns  Iteration: 1  Instance: /tb
+# Break in Process P_DUMP_STATE at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 150
+# Stopped at /home/wmhudson/Documents/Proj1/CPRE381PROJ1/TopLevel/internal/testpy/tb.vhd line 150
+# End time: 12:51:26 on Dec 08,2022, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 81

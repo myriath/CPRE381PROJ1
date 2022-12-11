@@ -25,6 +25,7 @@ generic(N	: integer	:= 32);
   port(i_Contral   : in std_logic_vector(4-1 downto 0);
        i_A          : in std_logic_vector(N-1 downto 0);
        i_B          : in std_logic_vector(N-1 downto 0);
+       o_Z	    : out std_logic;
        o_Result        : out std_logic_vector(N-1 downto 0);
        o_OverFlow      : out std_logic);
 
@@ -144,6 +145,8 @@ g_addsub: addsub port map(
 		o_S	=> s_AddSub,
 		o_C	=> s_Carry);
 
+o_Z	<= '1' when i_A = i_B else '0';
+
 OverflowXor: xorg2
     port MAP(i_A             => s_Carry(N-1),
              i_B               => s_Carry(N-2),
@@ -167,6 +170,7 @@ with i_Contral select
                     s_repl_qb when "1000",-- repl.qb
                     s_Nor when "1001",-- Nor
 		    i_B(15 downto 0) & x"0000" when "1010",-- lowed upper immidiate
+		    i_A when "1011",
                       x"00000000" when others;
 
 o_OverFlow <= s_OverFlow when (i_Contral = "0011" or i_Contral = "0100") else '0';

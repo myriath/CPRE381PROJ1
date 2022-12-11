@@ -71,14 +71,24 @@ architecture structure of MIPS_Processor is
   -- TODO: You may add any additional signals or components your implementation 
   --       requires below this comment
 
-component Foward is
-	port(	i_RS	: in std_logic_vector(4 downto 0);
-		i_RT	: in std_logic_vector(4 downto 0);
-		i_ExMem	: in std_logic_vector(4 downto 0);
-		i_ExALU	: in std_logic_vector(4 downto 0);
-		o_RS	: out std_logic_vector(1 downto 0);
-		o_RT	: out std_logic_vector(1 downto 0));
- end component;
+  component Foward is
+	port(	i_A	: in std_logic_vector(4 downto 0);
+		i_B	: in std_logic_vector(4 downto 0);
+		i_MemD	: in std_logic_vector(4 downto 0);
+		i_MemW	: in std_logic;
+		i_WbD	: in std_logic_vector(4 downto 0);
+		i_WbW	: in std_logic;
+		o_A	: out std_logic_vector(1 downto 0);
+		o_B	: out std_logic_vector(1 downto 0));
+  end component;
+
+  component controlhazards is port(
+	clk		: in std_logic;
+	rst		: in std_logic;
+	opcode		: in std_logic_vector(5 downto 0);
+	funct		: in std_logic_vector(5 downto 0);
+	flush		: out std_logic);
+  end component;
 
   component dffgSpecial is port(
 	i_CLK		: in std_logic;
@@ -96,10 +106,21 @@ component Foward is
 	q		: out std_logic_vector(N-1 downto 0));
   end component;
 
+  component flush_reg is generic(N : integer := 32); port(
+	clk		: in std_logic;
+	rst		: in std_logic;
+	w_en		: in std_logic;
+	stall		: in std_logic;
+	flush		: in std_logic;
+	d		: in std_logic_vector(N-1 downto 0);
+	q		: out std_logic_vector(N-1 downto 0));
+  end component;
+
   component ALU is generic(N : integer := 32); port(
 	i_Contral	: in std_logic_vector(3 downto 0);
 	i_A		: in std_logic_vector(N-1 downto 0);
 	i_B		: in std_logic_vector(N-1 downto 0);
+	o_Z		: out std_logic;
 	o_Result	: out std_logic_vector(N-1 downto 0);
 	o_OverFlow	: out std_logic);
   end component;
@@ -148,18 +169,18 @@ component Foward is
 	o_Q		: out std_logic);
   end component;
 
-  signal s_WBL2, s_WBL3, s_WBL4, s_ML2, s_ML3, s_EXL2, s_equal, s_EQUAL2, s_EQUAL3, s_EQUAL4	: std_logic;
-  signal s_Overflow, s_TRegWr		: std_logic;
+  signal s_equal, s_zero	: std_logic;
+  signal s_Overflow		: std_logic;
   signal s_control, s_C2, s_C3, s_C4	: std_logic_vector(20 downto 0);
-  signal s_extend, s_EXTEND2, s_regread0, s_regread1, s_alua, s_alub, s_alures, s_aluormem, s_INST2, s_INST3, s_INST4, s_INST5, s_REGA2, s_REGA3, s_REGA4, s_REGB2, s_ALUOUT, s_ALUOUT2, s_DMEMIN, s_DMEMIN2, s_DMEMOUT2	: std_logic_vector(31 downto 0);
+  signal s_extend, s_EXTEND2, s_regread0, s_regread1, s_alua, s_alub, s_aluat, s_alubt, s_alures, s_aluresultdirect, s_aluormem, s_ALUORMEM2, s_INST2, s_INST3, s_INST4, s_INST5, s_REGA2, s_REGA3, s_REGA4, s_REGB2, s_ALUOUT, s_ALUOUT2, s_DMEMIN, s_DMEMIN2, s_DMEMOUT2	: std_logic_vector(31 downto 0);
 
   -- PC
   signal s_pcint, s_pcint2, s_bImmed	: integer;
-  signal s_BRANCH2, s_BRANCH3, s_BRANCH4, s_JUMP2, s_JUMP3, s_JUMP4, s_pcplus4, s_PCP4, s_PCP43, s_PCP42, s_PCP41, s_pcNext, s_jAddr, s_bAddr	: std_logic_vector(31 downto 0);
+  signal s_BRANCH2, s_pcplus4, s_PCP40, s_PCP43, s_PCP42, s_PCP41, s_pcNext, s_jAddr, s_bAddr	: std_logic_vector(31 downto 0);
 
-  signal s_stall		: std_logic;
-  signal s_SHAMT2		: std_logic_vector(4 downto 0);
-	signal s_FowardA, s_FowardB	: std_logic_vector(1 downto 0);
+  signal s_flush, s_flush1, s_flush2, s_branching		: std_logic;
+  signal s_SHAMT2, s_EX_dest, s_DEST2, s_DEST3		: std_logic_vector(4 downto 0);
+  signal s_FowardA, s_FowardB	: std_logic_vector(1 downto 0);
 begin
 
   -- TODO: This is required to be your final input to your instruction memory. This provides a feasible method to externally load the memory module which means that the synthesis tool must assume it knows nothing about the values stored in the instruction memory. If this is not included, much, if not all of the design is optimized out because the synthesis tool will believe the memory to be all zeros.
@@ -185,7 +206,6 @@ begin
              we   => s_DMemWr,
              q    => s_DMemOut);
 
-  s_stall <= '1';
   -- TODO: Ensure that s_Halt is connected to an output control signal produced from decoding the Halt instruction (Opcode: 01 0100)
   ControlUnit: control
 	port map(	i_INST		=> s_INST2,
@@ -210,41 +230,59 @@ begin
 			REPL		=> s_control(16),
 			Halt		=> s_control(19));
 -- TODO: Implementing fowarding 
+
+  s_EX_dest	<= "11111" when (s_C2(3) = '1') else
+		   s_INST3(20 downto 16) when (s_C2(0) = '0') else
+		   s_INST3(15 downto 11);
 	
  Fowarding: Foward
-		port map(    i_RS	=> s_INST2(25 downto 21),
-			i_RT	=> s_INST2(20 downto 16),
-			i_ExMem	=> s_INST5(15 downto 11),
-			i_ExALU	=> s_INST3(15 downto 11),
-			o_RS	=> s_FowardA,
-			o_RT    => s_FowardB );
+	port map(	i_A	=> s_INST3(25 downto 21),
+			i_B	=> s_INST3(20 downto 16),
+			i_MemD	=> s_DEST2,
+			i_MemW	=> s_C3(18),
+			i_WbD	=> s_DEST3,
+			i_WbW	=> s_C4(18),
+			o_A	=> s_FowardA,
+			o_B	=> s_FowardB);
+
+ ControlHazard: controlhazards
+	port map(	clk	=> iCLK,
+			rst	=> iRST,
+			opcode	=> s_INST2(31 downto 26),
+			funct	=> s_INST2(5 downto 0),
+			flush	=> s_flush);
+  s_flush1	<= '1' when s_flush = '1' or s_flush2 = '1' else '0';
+  s_flush2	<= '1' when s_branching = '1' else '0';
 
   -- TODO: Ensure that s_Ovfl is connected to the overflow output of your ALU
-  s_alua		<= s_REGA2 when (s_C2(12) = '0') else "000" & x"000000" & s_SHAMT2;
-	s_alua <= s_alua when(s_FowardA = "00")else s_alures when(s_FowardA = "01") else s_aluormem when(s_FowardA =  "10");
+  s_alua		<= s_aluat when (s_C2(12) = '0') else "000" & x"000000" & s_SHAMT2;
+	s_aluat <= s_REGA2 when(s_FowardA = "00")else s_aluormem when(s_FowardA = "01") else s_RegWrData;
 
-	s_alub <= s_alub when(s_FowardB = "00") else s_alures when(s_FowardB = "01") else s_aluormem when(s_FowardB =  "10");
+	s_alubt <= s_REGB2 when(s_FowardB = "00") else s_aluormem  when(s_FowardB = "01") else s_RegWrData;
 
   MathUnit: ALU
 	port map(	i_Contral	=> s_C2(9 downto 6),
 			i_A		=> s_alua,
 			i_B		=> s_alub,
-			o_Result	=> s_alures,
+			o_Z		=> s_zero,
+			o_Result	=> s_aluresultdirect,
 			o_OverFlow	=> s_Overflow);
   s_DMemAddr		<= s_ALUOUT(N-1 downto 0);
-  s_aluormem		<= s_DMEMOUT2 when (s_C4(5) = '1') else s_ALUOUT2;
-  oALUOut		<= s_alures;
+  s_aluormem		<= s_DMemOut when (s_C3(5) = '1') else s_ALUOUT;
+  oALUOut		<= s_aluresultdirect;
 
   -- TODO: Implement the rest of your processor below this comment! 
 
-  s_RegWrData		<= x"00000001" when (s_C4(14) = '1' and s_ALUOUT2(31) = '1') else
-			   x"00000000" when (s_C4(14) = '1' and s_ALUOUT2(31) = '0') else
-			   s_REGA4 when (s_C4(15) = '1' and not (s_DMEMIN2 = x"00000000")) else 
-			   s_aluormem when (s_C4(3) = '0') else
-			   s_PCP43;
-  s_RegWrAddr		<= "11111" when (s_C4(3) = '1') else
-			   s_INST5(20 downto 16) when (s_C4(0) = '0') else 
-			   s_INST5(15 downto 11);
+  s_alures		<= x"00000001" when s_C2(14) = '1' and s_aluresultdirect(31) = '1' else
+			   x"00000000" when s_C2(14) = '1' and s_aluresultdirect(31) = '0' else
+			   s_REGA4 when s_C2(15) = '1' and not (s_DMEMIN2 = x"00000000") else
+			   s_aluresultdirect when s_C2(3) = '0' else
+			   s_PCP41;
+
+  s_RegWrData		<= s_ALUORMEM2;
+
+  s_RegWrAddr		<= s_DEST3;
+
   Registers: regfile
 	port map(	i_CLK		=> iCLK,
 			i_RST		=> iRST,
@@ -259,43 +297,49 @@ begin
   s_extend		<= x"ffff" & s_INST2(15 downto 0) when (s_INST2(15) = '1' and s_control(11) = '1') else
 			   x"0000" & s_INST2(15 downto 0);
   s_alub		<= x"000000" & s_INST3(23 downto 16) when (s_C2(16) = '1') else
-			   s_REGB2 when (s_C2(10) = '0') else
+			   s_alubt when (s_C2(10) = '0') else
 			   s_EXTEND2;
 
   s_pcint		<= to_integer(unsigned(s_IMemAddr) + 4);
-  s_pcint2		<= to_integer(unsigned(s_PCP4));
+  s_pcint2		<= to_integer(unsigned(s_PCP40));
   s_bImmed		<= to_integer(unsigned(s_extend(29 downto 0) & "00"));
   s_pcplus4		<= std_logic_vector(to_signed(s_pcint, 32));
-  s_jAddr		<= s_PCP4(31 downto 28) & s_INST2(25 downto 0) & "00";
+  s_jAddr		<= s_PCP40(31 downto 28) & s_INST2(25 downto 0) & "00";
   s_bAddr		<= std_logic_vector(to_signed(s_pcint2 + s_bImmed, 32));
   s_equal		<= '1' when s_regread0 = s_regread1 else '0';
 
-  s_pcNext		<= s_regread0 when (s_control(13) = '1') else
+  s_pcNext		<= s_BRANCH2  when (s_branching = '1') else
+			   s_regread0 when (s_control(13) = '1') else
 			   s_jAddr    when (s_control(1)  = '1') else
-			   s_bAddr  when ((s_control(2)  = '1' and s_equal = '1') or (s_control(20) = '1' and s_equal = '0')) else
 			   s_pcplus4;
 
-  PCP4: n_dff
-	generic map(	N		=> 32)
-	port map(	clk		=> iCLK,
-			rst		=> iRST,
-			w_en		=> s_stall,
-			d		=> s_pcplus4,
-			q		=> s_PCP4);
+  s_branching		<= '1' when (s_C2(2) = '1' and s_zero = '1') or (s_C2(20) = '1' and s_zero = '0') else '0';
 
-  PCP41: n_dff
+  PCP40: flush_reg
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
-			d		=> s_PCP4,
+			w_en		=> '1',
+			stall		=> '0',
+			flush		=> s_flush1,
+			d		=> s_pcplus4,
+			q		=> s_PCP40);
+
+  PCP41: flush_reg
+	generic map(	N		=> 32)
+	port map(	clk		=> iCLK,
+			rst		=> iRST,
+			w_en		=> '1',
+			stall		=> '0',
+			flush		=> s_flush2,
+			d		=> s_PCP40,
 			q		=> s_PCP41);
 
   PCP42: n_dff
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_PCP41,
 			q		=> s_PCP42);
 
@@ -303,93 +347,34 @@ begin
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_PCP42,
 			q		=> s_PCP43);
-
-  EQUAL2: dffg
-	port map(	i_CLK		=> iCLK,
-			i_RST		=> iRST,
-			i_WE		=> s_stall,
-			i_D		=> s_equal,
-			o_Q		=> s_EQUAL2);
-
-  EQUAL3: dffg
-	port map(	i_CLK		=> iCLK,
-			i_RST		=> iRST,
-			i_WE		=> s_stall,
-			i_D		=> s_EQUAL2,
-			o_Q		=> s_EQUAL3);
-
-  EQUAL4: dffg
-	port map(	i_CLK		=> iCLK,
-			i_RST		=> iRST,
-			i_WE		=> s_stall,
-			i_D		=> s_EQUAL3,
-			o_Q		=> s_EQUAL4);
 
   BRANCH2: n_dff
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_bAddr,
 			q		=> s_BRANCH2);
-
-  BRANCH3: n_dff
-	generic map(	N		=> 32)
-	port map(	clk		=> iCLK,
-			rst		=> iRST,
-			w_en		=> s_stall,
-			d		=> s_BRANCH2,
-			q		=> s_BRANCH3);
-
-  BRANCH4: n_dff
-	generic map(	N		=> 32)
-	port map(	clk		=> iCLK,
-			rst		=> iRST,
-			w_en		=> s_stall,
-			d		=> s_BRANCH3,
-			q		=> s_BRANCH4);
-
-  JUMP2: n_dff
-	generic map(	N		=> 32)
-	port map(	clk		=> iCLK,
-			rst		=> iRST,
-			w_en		=> s_stall,
-			d		=> s_jAddr,
-			q		=> s_JUMP2);
-
-  JUMP3: n_dff
-	generic map(	N		=> 32)
-	port map(	clk		=> iCLK,
-			rst		=> iRST,
-			w_en		=> s_stall,
-			d		=> s_JUMP2,
-			q		=> s_JUMP3);
-
-  JUMP4: n_dff
-	generic map(	N		=> 32)
-	port map(	clk		=> iCLK,
-			rst		=> iRST,
-			w_en		=> s_stall,
-			d		=> s_JUMP3,
-			q		=> s_JUMP4);
 
 ------ PIPELINING CONTROL BITS ------
   PC: dffgSpecial
 	port map(	i_CLK		=> iCLK,
 			i_RST		=> iRST,
-			i_WE		=> s_stall, -- TODO: Replace with hazard detection unit signal
+			i_WE		=> '1',
 			i_D		=> s_pcNext,
 			o_Q		=> s_NextInstAddr);
 
 ------ PIPELINING CONTROL BITS ------
-  C2: n_dff
+  C2: flush_reg
 	generic map(	N		=> s_control'length)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
+			stall		=> '0',
+			flush		=> s_flush2,
 			d		=> s_control,
 			q		=> s_C2);
 
@@ -397,7 +382,7 @@ begin
 	generic map(	N		=> s_control'length)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_C2,
 			q		=> s_C3);
 
@@ -405,23 +390,27 @@ begin
 	generic map(	N		=> s_control'length)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_C3,
 			q		=> s_C4);
 
-  INST2: n_dff
+  INST2: flush_reg
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
+			stall		=> '0',
+			flush		=> s_flush1,
 			d		=> s_Inst,
 			q		=> s_INST2);
 
-  INST3: n_dff
+  INST3: flush_reg
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
+			stall		=> '0',
+			flush		=> s_flush2,
 			d		=> s_INST2,
 			q		=> s_INST3);
 
@@ -429,7 +418,7 @@ begin
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_INST3,
 			q		=> s_INST4);
 
@@ -437,15 +426,33 @@ begin
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_INST4,
 			q		=> s_INST5);
 
-  REGA2: n_dff
+  DEST2: n_dff
+	generic map(	N		=> 5)
+	port map(	clk		=> iCLK,
+			rst		=> iRST,
+			w_en		=> '1',
+			d		=> s_EX_dest,
+			q		=> s_DEST2);
+
+  DEST3: n_dff
+	generic map(	N		=> 5)
+	port map(	clk		=> iCLK,
+			rst		=> iRST,
+			w_en		=> '1',
+			d		=> s_DEST2,
+			q		=> s_DEST3);
+
+  REGA2: flush_reg
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
+			stall		=> '0',
+			flush		=> s_flush2,
 			d		=> s_regread0,
 			q		=> s_REGA2);
 
@@ -453,7 +460,7 @@ begin
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_REGA2,
 			q		=> s_REGA3);
 
@@ -461,31 +468,37 @@ begin
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_REGA3,
 			q		=> s_REGA4);
 
-  REGB2: n_dff
+  REGB2: flush_reg
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
+			stall		=> '0',
+			flush		=> s_flush2,
 			d		=> s_regread1,
 			q		=> s_REGB2);
 
-  EXTEND2: n_dff
+  EXTEND2: flush_reg
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
+			stall		=> '0',
+			flush		=> s_flush2,
 			d		=> s_extend,
 			q		=> s_EXTEND2);
 
-  SHAMT2: n_dff
+  SHAMT2: flush_reg
 	generic map(	N		=> 5)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
+			stall		=> '0',
+			flush		=> s_flush2,
 			d		=> s_INST2(10 downto 6),
 			q		=> s_SHAMT2);
 
@@ -493,7 +506,7 @@ begin
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_alures,
 			q		=> s_ALUOUT);
 
@@ -501,23 +514,31 @@ begin
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_ALUOUT,
 			q		=> s_ALUOUT2);
+
+  ALUORMEM2: n_dff
+	generic map(	N		=> 32)
+	port map(	clk		=> iCLK,
+			rst		=> iRST,
+			w_en		=> '1',
+			d		=> s_aluormem,
+			q		=> s_ALUORMEM2);
 
   DMEMIN: n_dff
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
-			d		=> s_REGB2,
+			w_en		=> '1',
+			d		=> s_alubt,
 			q		=> s_DMEMIN);
 
   DMEMIN2: n_dff
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_DMEMIN,
 			q		=> s_DMEMIN2);
 
@@ -525,7 +546,7 @@ begin
 	generic map(	N		=> 32)
 	port map(	clk		=> iCLK,
 			rst		=> iRST,
-			w_en		=> s_stall,
+			w_en		=> '1',
 			d		=> s_DMemOut,
 			q		=> s_DMEMOUT2);
 

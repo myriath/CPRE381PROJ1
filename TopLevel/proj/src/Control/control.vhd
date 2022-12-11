@@ -72,7 +72,7 @@ ALUOp	 <= 	x"0" when (i_INST = x"00000000") else
             	x"0" when ((noOp = '1' and i_FUNCT = "100100") or i_OP = "001100") else
 		x"1" when ((noOp = '1' and i_FUNCT = "100101") or i_OP = "001101") else
 		x"2" when ((noOp = '1' and i_FUNCT = "100110") or i_OP = "001110") else
-		x"3" when ((noOp = '1' and (i_FUNCT = "100000" or i_FUNCT = "100001" or i_FUNCT = "001011")) or top5 = "00100" or i_OP = "100011" or i_OP = "101011") else
+		x"3" when ((noOp = '1' and (i_FUNCT = "100000" or i_FUNCT = "100001")) or top5 = "00100" or i_OP = "100011" or i_OP = "101011") else
 		x"4" when ((noOp = '1' and (i_FUNCT = "100010" or i_FUNCT = "101010" or i_FUNCT = "100011")) or top5 = "00010" or i_OP = "001010") else
 		x"5" when (noOp = '1' and i_FUNCT = "000000") else
 		x"6" when (noOp = '1' and i_FUNCT = "000010") else
@@ -80,7 +80,7 @@ ALUOp	 <= 	x"0" when (i_INST = x"00000000") else
 		x"8" when (replSig = '1') else
 		x"9" when (noOp = '1' and i_FUNCT = "100111") else
 		x"a" when (i_OP = "001111") else
---		x"b" when () else
+		x"b" when (noOp = '1' and i_FUNCT = "001011") else
 --		x"c" when () else
 --		x"d" when () else
 --		x"e" when () else

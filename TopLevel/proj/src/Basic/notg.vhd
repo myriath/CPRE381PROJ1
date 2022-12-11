@@ -11,6 +11,6 @@ end notg;
 architecture dataflow of notg is
 begin
 
-  o_out <= not i_in;
+  o_out <= '1' when i_in = '0' else '0';
   
 end dataflow;

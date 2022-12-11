@@ -70,7 +70,8 @@ begin
 			x"40000000" when i_WADDR = "11110" else
 			x"80000000" when i_WADDR = "11111";
 	
-	o_RDATA0 <= 	x"00000000" when i_RADDR0 = "00000" else
+	o_RDATA0 <= 	i_WDATA when i_RADDR0 = i_WADDR and i_WEN = '1' else
+			x"00000000" when i_RADDR0 = "00000" else
 			s_READLINES(1) when i_RADDR0 = "00001" else
 			s_READLINES(2) when i_RADDR0 = "00010" else
 			s_READLINES(3) when i_RADDR0 = "00011" else
@@ -103,7 +104,8 @@ begin
 			s_READLINES(30) when i_RADDR0 = "11110" else
 			s_READLINES(31) when i_RADDR0 = "11111";
 
-	o_RDATA1 <= 	x"00000000" when i_RADDR1 = "00000" else
+	o_RDATA1 <= 	i_WDATA when i_RADDR1 = i_WADDR and i_WEN = '1' else
+			x"00000000" when i_RADDR1 = "00000" else
 			s_READLINES(1) when i_RADDR1 = "00001" else
 			s_READLINES(2) when i_RADDR1 = "00010" else
 			s_READLINES(3) when i_RADDR1 = "00011" else

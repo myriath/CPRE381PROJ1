@@ -1,6 +1,6 @@
 QuestaSim-64 vcom 2022.2 Compiler 2022.04 Apr 25 2022
-Start time: 14:18:23 on Dec 07,2022
-vcom -2008 -work internal/ModelSimContainer/work proj/src/MIPS_types.vhd internal/testpy/tb.vhd proj/src/MIPS_types.vhd proj/src/Basic/xorg2.vhd proj/src/Basic/dffgSpecial.vhd proj/src/Basic/n_dff.vhd proj/src/Basic/andg2.vhd proj/src/Basic/5x32decoder.vhd proj/src/Basic/org2.vhd proj/src/Basic/dffg.vhd proj/src/Basic/mux32t1.vhd proj/src/Basic/Nor.vhd proj/src/ALU/ALU.vhd proj/src/ALU/FullAdder.vhd proj/src/ALU/AddSub.vhd proj/src/ALU/Barrel_Shifter.vhd proj/src/Control/control.vhd proj/src/PC/pc.vhd proj/src/TopLevel/MIPS_Processor.vhd proj/src/TopLevel/mem.vhd proj/src/RegFile/regfile.vhd 
+Start time: 21:04:24 on Dec 10,2022
+vcom -2008 -work internal/ModelSimContainer/work proj/src/MIPS_types.vhd internal/testpy/tb.vhd proj/src/MIPS_types.vhd proj/src/Basic/tffg.vhd proj/src/Basic/flushablereg.vhd proj/src/Basic/notg.vhd proj/src/Basic/flushablereg4.vhd proj/src/Basic/andg6.vhd proj/src/Basic/xorg2.vhd proj/src/Basic/dffgSpecial.vhd proj/src/Basic/n_dff.vhd proj/src/Basic/andg2.vhd proj/src/Basic/5x32decoder.vhd proj/src/Basic/org2.vhd proj/src/Basic/dffg.vhd proj/src/Basic/mux32t1.vhd proj/src/Basic/org5.vhd proj/src/Basic/Nor.vhd proj/src/ALU/ALU.vhd proj/src/ALU/FullAdder.vhd proj/src/ALU/AddSub.vhd proj/src/ALU/Barrel_Shifter.vhd proj/src/Control/controlhazard.vhd proj/src/Control/control.vhd proj/src/Control/Foward.vhd proj/src/PC/pc.vhd proj/src/TopLevel/MIPS_Processor.vhd proj/src/TopLevel/mem.vhd proj/src/RegFile/regfile.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
@@ -16,6 +16,18 @@ vcom -2008 -work internal/ModelSimContainer/work proj/src/MIPS_types.vhd interna
 ** Warning: proj/src/MIPS_types.vhd(29): (vcom-1615) Existing package body 'MIPS_types(body)' at line 29 will be overwritten.
 -- Compiling package body MIPS_types
 -- Loading package MIPS_types
+-- Compiling entity tffg
+-- Compiling architecture structure of tffg
+-- Compiling entity flush_reg
+-- Compiling architecture structural of flush_reg
+-- Compiling entity notg
+-- Compiling architecture dataflow of notg
+-- Compiling package flushpkg
+-- Loading package flushpkg
+-- Compiling entity flush_reg_seq
+-- Compiling architecture structural of flush_reg_seq
+-- Compiling entity andg6
+-- Compiling architecture dataflow of andg6
 -- Compiling entity xorg2
 -- Compiling architecture dataflow of xorg2
 -- Compiling entity dffgSpecial
@@ -34,6 +46,8 @@ vcom -2008 -work internal/ModelSimContainer/work proj/src/MIPS_types.vhd interna
 -- Loading package muxpkg
 -- Compiling entity mux32t1
 -- Compiling architecture dataflow of mux32t1
+-- Compiling entity org5
+-- Compiling architecture dataflow of org5
 -- Compiling entity Norg
 -- Compiling architecture dataflow of Norg
 -- Compiling entity ALU
@@ -45,15 +59,18 @@ vcom -2008 -work internal/ModelSimContainer/work proj/src/MIPS_types.vhd interna
 -- Loading package NUMERIC_STD
 -- Compiling entity Barrel_Shifter
 -- Compiling architecture mixed of Barrel_Shifter
+-- Compiling entity controlhazards
+-- Compiling architecture behavioral of controlhazards
 -- Compiling entity control
 -- Compiling architecture behavioral of control
+-- Compiling entity Foward
+-- Compiling architecture behavioral of Foward
 -- Compiling entity pc
 -- Compiling architecture behavioral of pc
 -- Loading package MIPS_types
 -- Compiling entity MIPS_Processor
 -- Compiling architecture structure of MIPS_Processor
-** Error: proj/src/TopLevel/MIPS_Processor.vhd(252): near ")": syntax error
-** Error: proj/src/TopLevel/MIPS_Processor.vhd(186): (vcom-1152) Index value 20 is out of index range 19 downto 0 of ieee.std_logic_1164.STD_LOGIC_VECTOR.
-** Note: proj/src/TopLevel/MIPS_Processor.vhd(515): VHDL Compiler exiting
-End time: 14:18:23 on Dec 07,2022, Elapsed time: 0:00:00
-Errors: 2, Warnings: 2
+** Error: proj/src/TopLevel/MIPS_Processor.vhd(335): (vcom-1136) Unknown identifier "s_PCP4".
+** Note: proj/src/TopLevel/MIPS_Processor.vhd(551): VHDL Compiler exiting
+End time: 21:04:24 on Dec 10,2022, Elapsed time: 0:00:00
+Errors: 1, Warnings: 2

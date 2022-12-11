@@ -63,7 +63,7 @@ flip_flop: dffg
 	port map( i_CLK => i_CLK, 
 	i_RST => i_RST,
 	i_WE  => i_WE,
-	i_D   => i_T,
+	i_D   => in_D,
 	o_Q   => out_Q);
 
 
